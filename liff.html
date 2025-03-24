@@ -92,7 +92,7 @@
                 }
 
                 const profile = await liff.getProfile();
-                document.getElementById("lineId").textContent = profile.userId;
+                document.getElementById("lineId").value = profile.userId;
                 // document.getElementById("status").textContent = "成功獲取 lineId！";
 
             } catch (error) {
@@ -115,7 +115,8 @@
         function reloadPage() {
             location.reload();
         }
-
+        document.getElementById("name").value = "123";
+        document.getElementById("phone").textContent = "12663";
         // 初始化 LIFF 或從 URL 讀取 lineId
         window.onload = () => {
             if (LIFF_ID) {
