@@ -136,12 +136,8 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ lineId: document.getElementById("lineId").value })
+            fetch(`https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: 'GET', // 或 POST，視情況而定
             })
             .then(response => response.json())
             .then(data => {
