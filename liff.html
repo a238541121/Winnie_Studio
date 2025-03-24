@@ -36,7 +36,7 @@
                 <input type="text" class="form-control" id="phone" readonly>
             </div>
             <div class="mb-3">
-                <label for="timeslot" class="form-label">可預約時段</label>
+                <label for="timeslot" class="form-label">時段</label>
                 <select class="form-select" id="timeslot"></select>
             </div>
             <div class="mb-3">
@@ -108,22 +108,34 @@
             }
         }
         async function dataSearch(lineID) {
-            // 透過 Fetch API 取得時段資料
-            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`)
-                .then(response => response.json())
-                .then(data => {
-                    let select = document.getElementById("timeslot");
-                    select.innerHTML = "";  // 清空舊選項
-                    
-                    // 動態加入可預約時段
-                    data.slots.forEach(timeSlot => {
-                        let option = document.createElement("option");
-                        option.value = timeSlot;
-                        option.textContent = timeSlot;
-                        select.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("取得時段失敗", error));
+            try {
+                let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                let data = await response.json();
+                console.log("取得的資料:", data); // 🔹 確保資料正確回傳
+
+                if (!data || !data.slots || !Array.isArray(data.slots)) {
+                    console.error("錯誤: 時段資料格式錯誤或不存在");
+                    return;
+                }
+
+                let select = document.getElementById("timeslot");
+                select.innerHTML = ""; // 清空舊選項
+                
+                // 🔹 動態加入可預約時段
+                data.slots.forEach(timeSlot => {
+                    let option = document.createElement("option");
+                    option.value = timeSlot;
+                    option.textContent = timeSlot;
+                    select.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error("取得時段失敗", error);
+            }
         }
         async function getLineIdFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
