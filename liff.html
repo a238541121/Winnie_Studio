@@ -136,7 +136,13 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`)
+            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ lineId: document.getElementById("lineId").value })
+            })
             .then(response => response.json())
             .then(data => {
                 let select = document.getElementById("timeslot");
@@ -150,6 +156,7 @@
                 });
             })
             .catch(error => console.error("取得時段失敗", error));
+
         }
         async function getLineIdFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
