@@ -4,36 +4,77 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIFF 測試</title>
+    <title>美甲＆睫毛管理預約表單</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
             background: rgba(245, 195, 140, 0.8);
+            background-size: cover;
+            background-position: center;
             font-family: Arial, sans-serif;
         }
         .container {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             margin-top: 50px;
-            text-align: center;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>LIFF 測試</h2>
-        <p id="status">載入中...</p>
-        <p><strong>你的 Line ID：</strong> <span id="lineId">無法取得</span></p>
-        <button class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+        <h2 class="text-center">美甲＆睫毛管理預約</h2>
+        <form id="bookingForm">
+            <input type="hidden" id="lineId" value="<?= lineId ?>"> 
+            <div class="mb-3">
+                <label for="name" class="form-label">姓名</label>
+                <input type="text" class="form-control" id="name" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">電話</label>
+                <input type="text" class="form-control" id="phone" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="timeslot" class="form-label">可預約時段</label>
+                <select class="form-select" id="timeslot"></select>
+            </div>
+            <div class="mb-3">
+                <label for="item" class="form-label">項目</label>
+                <input type="text" class="form-control" id="item">
+            </div>
+            <div class="mb-3">
+                <label for="remarks" class="form-label">備註</label>
+                <textarea class="form-control" id="remarks"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
+            <button type="hidden" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+        </form>
     </div>
 
     <script>
-        const LIFF_ID = "2007108431-rGGOW6R0";  // ⚠️ 請填寫你的 LIFF ID，如果不使用 LIFF 就留空
+        const GAS_ID = "";
+        const LIFF_ID = "2007108431-rGGOW6R0";
+        // 取得並顯示 lineId
+        async function sendSubmit() {
+            var data = {
+                lineId: document.getElementById("lineId").value,
+                name: document.getElementById("name").value,
+                phone: document.getElementById("phone").value,
+                timeslot: document.getElementById("timeslot").value,
+                item: document.getElementById("item").value,
+                remarks: document.getElementById("remarks").value,
+            };
+            let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+            });
+
+            let result = await response.text();
+            alert(result);
+            alert(data);
+            // alert(`${data.lineId} 資料已儲存！`);
+        }
 
         async function initLIFF() {
             try {
@@ -58,7 +99,6 @@
                 getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
             }
         }
-
         function getLineIdFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const lineId = urlParams.get("lineId");
