@@ -53,10 +53,10 @@
     </div>
     <p id="errorMessage" style="display: none; text-align: center; color: red;">請重新開啟！</p>
     <div class="meta">
-        <button type="hidden" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+        <button style="display: none;" id="reloadPage" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
     </div>
     <script>
-        const GAS_ID = "";
+        const GAS_ID = "AKfycbzaRn4gOEGKKLC0DSlOSYFZlJvnKZgFpUUVVZdwVNKDko39Mf-eryhmjHNOs8NxbchKCQ";
         const LIFF_ID = "2007108431-rGGOW6R0";
         // 取得並顯示 lineId
         async function sendSubmit() {
@@ -68,14 +68,14 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            // let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
-            // method: "POST",
-            // body: JSON.stringify(data),
-            // headers: { "Content-Type": "application/json" }
-            // });
+            let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+            });
 
-            // let result = await response.text();
-            // alert(result);
+            let result = await response.text();
+            alert(result);
             alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
             // alert(`${data.lineId} 資料已儲存！`);
         }
@@ -96,28 +96,51 @@
 
                 const profile = await liff.getProfile();
                 document.getElementById("lineId").value = profile.userId;
+                await dataSearch(profile.userId);
                 //顯示畫面
                 document.getElementById("content").style.display = "block";
                 document.getElementById("errorMessage").style.display = "none";
+                document.getElementById("reloadPage").style.display = "none";
 
             } catch (error) {
                 console.warn("LIFF 初始化失敗，錯誤訊息:", error);
                 getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
             }
         }
-        function getLineIdFromURL() {
+        async function dataSearch(lineID) {
+            // 透過 Fetch API 取得時段資料
+            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`)
+                .then(response => response.json())
+                .then(data => {
+                    let select = document.getElementById("timeSlotSelect");
+                    select.innerHTML = "";  // 清空舊選項
+                    
+                    // 動態加入可預約時段
+                    data.slots.forEach(timeSlot => {
+                        let option = document.createElement("option");
+                        option.value = timeSlot;
+                        option.textContent = timeSlot;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("取得時段失敗", error));
+        }
+        async function getLineIdFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const lineId = urlParams.get("lineId");
 
             if (lineId) {
                 document.getElementById("lineId").value = lineId;
+                await dataSearch(lineId);
                 // 顯示畫面
                 document.getElementById("content").style.display = "block";
                 document.getElementById("errorMessage").style.display = "none";
+                document.getElementById("reloadPage").style.display = "none";
             } else {
                 // 顯示錯誤訊息
                 document.getElementById("content").style.display = "none";
                 document.getElementById("errorMessage").style.display = "block";
+                document.getElementById("reloadPage").style.display = "block";
             }
         }
 
