@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFF 測試</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: rgba(245, 195, 140, 0.8);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>LIFF 測試</h2>
+        <p id="status">載入中...</p>
+        <p><strong>你的 Line ID：</strong> <span id="lineId">無法取得</span></p>
+        <button class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+    </div>
+
+    <script>
+        const LIFF_ID = "2007108431-rGGOW6R0";  // ⚠️ 請填寫你的 LIFF ID，如果不使用 LIFF 就留空
+
+        async function initLIFF() {
+            try {
+                if (!LIFF_ID) {
+                    throw new Error("沒有設定 LIFF ID，將嘗試從 URL 讀取 lineId...");
+                }
+
+                await liff.init({ liffId: LIFF_ID });
+
+                if (!liff.isLoggedIn()) {
+                    document.getElementById("status").innerHTML = "請先登入 LINE...";
+                    liff.login();
+                    return;
+                }
+
+                const profile = await liff.getProfile();
+                document.getElementById("lineId").textContent = profile.userId;
+                document.getElementById("status").textContent = "成功獲取 lineId！";
+
+            } catch (error) {
+                console.warn("LIFF 初始化失敗，錯誤訊息:", error);
+                getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
+            }
+        }
+
+        function getLineIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lineId = urlParams.get("lineId");
+
+            if (lineId) {
+                document.getElementById("lineId").textContent = lineId;
+                document.getElementById("status").textContent = "成功從 URL 取得 lineId！";
+            } else {
+                document.getElementById("status").innerHTML = "<span class='error'>無法取得 lineId，請確認 URL 是否有 ?lineId=USER_ID</span>";
+            }
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+
+        // 初始化 LIFF 或從 URL 讀取 lineId
+        window.onload = () => {
+            if (LIFF_ID) {
+                initLIFF();
+            } else {
+                getLineIdFromURL();
+            }
+        };
+    </script>
+</body>
+</html>
