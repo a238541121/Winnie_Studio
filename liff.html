@@ -64,14 +64,14 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
-            });
+            // let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            // method: "POST",
+            // body: JSON.stringify(data),
+            // headers: { "Content-Type": "application/json" }
+            // });
 
-            let result = await response.text();
-            alert(result);
+            // let result = await response.text();
+            // alert(result);
             alert(data);
             // alert(`${data.lineId} 資料已儲存！`);
         }
