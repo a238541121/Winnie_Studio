@@ -85,14 +85,14 @@
                 await liff.init({ liffId: LIFF_ID });
 
                 if (!liff.isLoggedIn()) {
-                    document.getElementById("status").innerHTML = "請先登入 LINE...";
+                    // document.getElementById("status").innerHTML = "請先登入 LINE...";
                     liff.login();
                     return;
                 }
 
                 const profile = await liff.getProfile();
                 document.getElementById("lineId").textContent = profile.userId;
-                document.getElementById("status").textContent = "成功獲取 lineId！";
+                // document.getElementById("status").textContent = "成功獲取 lineId！";
 
             } catch (error) {
                 console.warn("LIFF 初始化失敗，錯誤訊息:", error);
@@ -105,9 +105,9 @@
 
             if (lineId) {
                 document.getElementById("lineId").textContent = lineId;
-                document.getElementById("status").textContent = "成功從 URL 取得 lineId！";
+                // document.getElementById("status").textContent = "成功從 URL 取得 lineId！";
             } else {
-                document.getElementById("status").innerHTML = "<span class='error'>無法取得 lineId，請確認 URL 是否有 ?lineId=USER_ID</span>";
+                // document.getElementById("status").innerHTML = "<span class='error'>無法取得 lineId，請確認 URL 是否有 ?lineId=USER_ID</span>";
             }
         }
 
