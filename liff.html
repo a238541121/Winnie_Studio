@@ -105,7 +105,7 @@
             const lineId = urlParams.get("lineId");
 
             if (lineId) {
-                document.getElementById("lineId").textContent = lineId;
+                document.getElementById("lineId").value = lineId;
                 // document.getElementById("status").textContent = "成功從 URL 取得 lineId！";
             } else {
                 // document.getElementById("status").innerHTML = "<span class='error'>無法取得 lineId，請確認 URL 是否有 ?lineId=USER_ID</span>";
@@ -116,14 +116,11 @@
             location.reload();
         }
         document.getElementById("name").value = "123";
-        document.getElementById("phone").textContent = "12663";
+        document.getElementById("phone").value = "12663";
         // 初始化 LIFF 或從 URL 讀取 lineId
-        window.onload = () => {
-            if (LIFF_ID) {
-                initLIFF();
-            } else {
-                getLineIdFromURL();
-            }
+        window.onload = async () => {
+            await initLIFF();
+            getLineIdFromURL(); // 無論如何都嘗試從 URL 讀取 lineId
         };
     </script>
 </body>
