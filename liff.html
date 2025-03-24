@@ -48,12 +48,13 @@
                 <textarea class="form-control" id="remarks"></textarea>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
-            <div class="meta">
-                <button type="hidden" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
-            </div>
+
         </form>
     </div>
     <p id="errorMessage" style="display: none; text-align: center; color: red;">請重新開啟！</p>
+    <div class="meta">
+        <button type="hidden" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+    </div>
     <script>
         const GAS_ID = "";
         const LIFF_ID = "2007108431-rGGOW6R0";
@@ -67,14 +68,14 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
-            });
+            // let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            // method: "POST",
+            // body: JSON.stringify(data),
+            // headers: { "Content-Type": "application/json" }
+            // });
 
-            let result = await response.text();
-            alert(result);
+            // let result = await response.text();
+            // alert(result);
             alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
             // alert(`${data.lineId} 資料已儲存！`);
         }
