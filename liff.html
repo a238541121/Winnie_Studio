@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-    <div class="container" id="content" style="display: block;">
+    <div class="container" id="content" style="display: none;">
         <h2 class="text-center">美甲＆睫毛管理預約</h2>
         <form id="bookingForm">
             <!-- <input type="hidden" id="lineId">  -->
@@ -129,7 +129,6 @@
         // 初始化 LIFF 或從 URL 讀取 lineId
         window.onload = async () => {
             await initLIFF();
-            getLineIdFromURL(); // 無論如何都嘗試從 URL 讀取 lineId
         };
     </script>
 </body>
