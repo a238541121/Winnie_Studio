@@ -112,7 +112,7 @@
             fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`)
                 .then(response => response.json())
                 .then(data => {
-                    let select = document.getElementById("timeSlotSelect");
+                    let select = document.getElementById("timeslot");
                     select.innerHTML = "";  // 清空舊選項
                     
                     // 動態加入可預約時段
