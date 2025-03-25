@@ -110,7 +110,7 @@
                 getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
             }
         }
-        
+        let selectedSlot = null; // 記錄使用者選擇的時段
         async function dataSearch(lineID) {
             // try {
             //     let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
@@ -140,25 +140,42 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`${cloudflareUrl}`, {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }})
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);  // 確認返回的 JSON 格式是否正確
-                    let select = document.getElementById("timeslot");
-                    select.innerHTML = "";  // 清空舊選項
+            const response = await fetch(cloudflareUrl);
+            const data = await response.json();
+
+            const slotList = document.getElementById("timeslot");
+            slotList.innerHTML = "";
+
+            data.slots.forEach(slot => {
+                const li = document.createElement("li");
+                li.textContent = `${slot.date} ${slot.time}`;
+                li.style.cursor = "pointer";
+                li.onclick = () => {
+                    selectedSlot = slot;
+                    alert(`已選擇：${slot.date} ${slot.time}`);
+                };
+                slotList.appendChild(li);
+            });
+
+            // fetch(`${cloudflareUrl}`, {
+            //     method: 'GET',
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     }})
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         console.log(data);  // 確認返回的 JSON 格式是否正確
+            //         let select = document.getElementById("timeslot");
+            //         select.innerHTML = "";  // 清空舊選項
                     
-                    data.slots.forEach(timeSlot => {
-                        let option = document.createElement("option");
-                        option.value = timeSlot;
-                        option.textContent = timeSlot;
-                        select.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("取得時段失敗", error));
+            //         data.slots.forEach(timeSlot => {
+            //             let option = document.createElement("option");
+            //             option.value = timeSlot;
+            //             option.textContent = timeSlot;
+            //             select.appendChild(option);
+            //         });
+            //     })
+            //     .catch(error => console.error("取得時段失敗", error));
                 
             }
             async function getLineIdFromURL() {
