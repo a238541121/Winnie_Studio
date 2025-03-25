@@ -37,7 +37,7 @@
             </div>
             <div class="mb-3">
                 <label for="timeslot" class="form-label">時段</label>
-                <select class="form-select" id="timeslot"></select>
+                <select class="form-select" id="timeslot"><option value="">請選擇時段</option></select>
             </div>
             <div class="mb-3">
                 <label for="item" class="form-label">項目</label>
@@ -136,7 +136,7 @@
             //     console.error("取得時段失敗", error);
             // }
             fetch(`https://winnie-studio.a238541121.workers.dev/`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 "Content-Type": "application/json"
             },
