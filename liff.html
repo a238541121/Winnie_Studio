@@ -129,9 +129,9 @@
                     headers: { "Content-Type": "application/json" }
                 });
                 let data = JSON.parse(await response.text());
-                console.log("取得的資料:", data); // 🔹 確保資料正確回傳
+                console.log("取得的資料:", data.message); // 🔹 確保資料正確回傳
             
-                if (!data || !data.slots || !Array.isArray(data.slots)) {
+                if (!data || !data.message || !Array.isArray(data.message)) {
                     console.error("錯誤: 時段資料格式錯誤或不存在");
                     return;
                 }
@@ -140,7 +140,7 @@
                 select.innerHTML = ""; // 清空舊選項
             
                 // 🔹 動態加入可預約時段
-                data.slots.forEach(timeSlot => {
+                data.message.forEach(timeSlot => {
                     let option = document.createElement("option");
                     option.value = timeSlot;
                     option.textContent = timeSlot;
