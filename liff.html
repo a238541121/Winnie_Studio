@@ -139,9 +139,7 @@
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ lineId: document.getElementById("lineId").value })
-            })
+            }
             .then(response => response.json())
             .then(data => {
                 console.log(data);  // 確認返回的 JSON 格式是否正確
