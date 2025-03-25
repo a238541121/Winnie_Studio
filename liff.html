@@ -141,30 +141,33 @@
             //     console.error("取得時段失敗", error);
             // }
             fetch(`${cloudflareUrl}`)
-            .then(res => res.json()) // 解析 JSON
-            .then(data => {
-                console.log(data); // 檢查 API 回傳格式是否正確
-                
-                if (!data.slots || data.slots.length === 0) {
-                    console.warn("沒有可用時段");
-                    return;
-                }
-                
-                // 解析 "MM/DD HH:mm" 格式的時段
-                const availableSlots = data.slots.map(slot => {
-                    const parts = slot.split(" "); // 拆分日期與時間
-                    return { date: parts[0], time: parts[1] };
-                });
-                
-                console.log(availableSlots); // 這裡的格式應該是 [{date: "03/26", time: "11:00"}, ...]
-                
-                // 這邊可以根據 availableSlots 去更新 UI，例如填入 select 選單
-                availableSlots.forEach(slot => {
-                    console.log(`可預約時段: ${slot.date} ${slot.time}`);
-                });
-                
-            })
+            .then(res => res.text()) // 改成 text() 看回傳內容
+            .then(text => console.log("API 回傳的內容:", text))
             .catch(err => console.error("取得時段失敗", err));
+            // .then(res => res.json()) // 解析 JSON
+            // .then(data => {
+            //     console.log(data); // 檢查 API 回傳格式是否正確
+            
+            //     if (!data.slots || data.slots.length === 0) {
+            //         console.warn("沒有可用時段");
+            //         return;
+            //     }
+            
+            //     // 解析 "MM/DD HH:mm" 格式的時段
+            //     const availableSlots = data.slots.map(slot => {
+            //         const parts = slot.split(" "); // 拆分日期與時間
+            //         return { date: parts[0], time: parts[1] };
+            //     });
+            
+            //     console.log(availableSlots); // 這裡的格式應該是 [{date: "03/26", time: "11:00"}, ...]
+            
+            //     // 這邊可以根據 availableSlots 去更新 UI，例如填入 select 選單
+            //     availableSlots.forEach(slot => {
+            //         console.log(`可預約時段: ${slot.date} ${slot.time}`);
+            //     });
+            
+            // })
+            // .catch(err => console.error("取得時段失敗", err));
             // fetch(`${cloudflareUrl}`, {
             //     method: 'GET',
             //     headers: {
