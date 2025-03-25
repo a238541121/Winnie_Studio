@@ -71,7 +71,7 @@
             let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
             method: "POST",
             mode: 'cors',
-            credentials: 'include'
+            credentials: 'include',
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
             });
@@ -141,7 +141,7 @@
             fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
             method: 'POST',
             mode: 'cors',
-            credentials: 'include'
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
