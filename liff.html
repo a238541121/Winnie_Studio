@@ -75,9 +75,9 @@
                 });
                 
                 if (response.ok) {
-                    let result = await response.json();  // 解析返回的 JSON
-                    console.log('預約成功:', result);  // 處理結果
-                    alert("預約成功！");
+                    let result = JSON.parse(await response.json());  // 解析返回的 JSON
+                    console.log('預約成功:', result.message);  // 處理結果
+                    alert(result.message);
                 } else {
                     console.error('預約失敗:', response.statusText);
                     alert("預約失敗，請再試一次！");
@@ -86,7 +86,7 @@
                 console.error('錯誤:', error);
                 alert("發生錯誤，請檢查網路或稍後再試！");
             }
-            alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
+            // alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
             // alert(`${data.lineId} 資料已儲存！`);
         }
         
