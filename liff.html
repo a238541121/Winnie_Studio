@@ -75,7 +75,7 @@
                 });
                 
                 if (response.ok) {
-                    let result = JSON.parse(await response.json());  // 解析返回的 JSON
+                    let result = JSON.parse(await response.text());  // 解析返回的 JSON
                     console.log('預約成功:', result.message);  // 處理結果
                     alert(result.message);
                 } else {
