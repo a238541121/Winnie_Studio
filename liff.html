@@ -68,7 +68,7 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            let response = await fetch(`https://winnie-studio.a238541121.workers.dev/`, {
+            let response = await fetch(`https://script.google.com/macros/s/AKfycbzaRn4gOEGKKLC0DSlOSYFZlJvnKZgFpUUVVZdwVNKDko39Mf-eryhmjHNOs8NxbchKCQ/exec`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
@@ -136,7 +136,7 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`https://winnie-studio.a238541121.workers.dev/`, {
+            fetch(`https://script.google.com/macros/s/AKfycbzaRn4gOEGKKLC0DSlOSYFZlJvnKZgFpUUVVZdwVNKDko39Mf-eryhmjHNOs8NxbchKCQ/exec`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
