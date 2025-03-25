@@ -67,14 +67,25 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            let response = await fetch(`${cloudflareUrl}`, {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" }
-            });
-            
-            let result = await response.text();
-            alert(result);
+            try {
+                let response = await fetch(`${cloudflareUrl}`, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: { "Content-Type": "application/json" }
+                });
+                
+                if (response.ok) {
+                    let result = await response.json();  // 解析返回的 JSON
+                    console.log('預約成功:', result);  // 處理結果
+                    alert("預約成功！");
+                } else {
+                    console.error('預約失敗:', response.statusText);
+                    alert("預約失敗，請再試一次！");
+                }
+            } catch (error) {
+                console.error('錯誤:', error);
+                alert("發生錯誤，請檢查網路或稍後再試！");
+            }
             alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
             // alert(`${data.lineId} 資料已儲存！`);
         }
@@ -140,21 +151,6 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`${cloudflareUrl}`)
-            .then(res => console.log(res.text()))  // 解析 JSON
-            .then(data => {
-                const slots = data.slots; // 取得預約時段
-                console.log(slots); // 在控制台中查看時段
-                // 在頁面中顯示時段，例如：
-                const slotList = document.getElementById('timeslot');
-                slots.forEach(slot => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = slot;
-                    slotList.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('錯誤:', error));
-            
             
         }
         async function getLineIdFromURL() {
