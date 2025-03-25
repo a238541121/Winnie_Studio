@@ -70,8 +70,6 @@
             };
             let response = await fetch(`https://winnie-studio.a238541121.workers.dev/`, {
             method: "POST",
-            mode: 'cors',
-            credentials: 'include',
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
             });
@@ -140,8 +138,6 @@
             // }
             fetch(`https://winnie-studio.a238541121.workers.dev/`, {
             method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
             headers: {
                 "Content-Type": "application/json"
             },
