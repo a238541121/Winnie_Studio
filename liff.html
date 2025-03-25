@@ -69,9 +69,9 @@
                 remarks: document.getElementById("remarks").value,
             };
             let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: "POST",
             mode: 'cors',
             credentials: 'include'
-            method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
             });
@@ -139,9 +139,9 @@
             //     console.error("取得時段失敗", error);
             // }
             fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            method: 'POST',
             mode: 'cors',
             credentials: 'include'
-            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
