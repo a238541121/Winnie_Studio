@@ -141,7 +141,7 @@
             //     console.error("取得時段失敗", error);
             // }
             fetch(`${cloudflareUrl}`)
-            .then(res => res.text())  // 解析 JSON
+            .then(res => console.log(res.text()))  // 解析 JSON
             .then(data => {
                 const slots = data.slots; // 取得預約時段
                 console.log(slots); // 在控制台中查看時段
