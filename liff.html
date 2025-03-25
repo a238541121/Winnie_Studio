@@ -128,7 +128,7 @@
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
-                let da = await response.text();
+                let da = JSON.parse(await response.text());
                 console.log("取得的資料da:", da); 
                 let data = await response.json();
                 console.log("取得的資料:", data); // 🔹 確保資料正確回傳
