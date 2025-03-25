@@ -68,7 +68,7 @@
                 item: document.getElementById("item").value,
                 remarks: document.getElementById("remarks").value,
             };
-            let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            let response = await fetch(`https://winnie-studio.a238541121.workers.dev/`, {
             method: "POST",
             mode: 'cors',
             credentials: 'include',
@@ -138,7 +138,7 @@
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
-            fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
+            fetch(`https://winnie-studio.a238541121.workers.dev/`, {
             method: 'POST',
             mode: 'cors',
             credentials: 'include',
