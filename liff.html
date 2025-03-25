@@ -112,50 +112,34 @@
         }
         let selectedSlot = null; // 記錄使用者選擇的時段
         async function dataSearch(lineID) {
-            // try {
-            //     let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
-            //         method: "GET",
-            //         headers: { "Content-Type": "application/json" }
-            //     });
+            try {
+                let response = await fetch(`${cloudflareUrl}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
             
-            //     let data = await response.json();
-            //     console.log("取得的資料:", data); // 🔹 確保資料正確回傳
+                let data = await response.json();
+                console.log("取得的資料:", data); // 🔹 確保資料正確回傳
             
-            //     if (!data || !data.slots || !Array.isArray(data.slots)) {
-            //         console.error("錯誤: 時段資料格式錯誤或不存在");
-            //         return;
-            //     }
+                if (!data || !data.slots || !Array.isArray(data.slots)) {
+                    console.error("錯誤: 時段資料格式錯誤或不存在");
+                    return;
+                }
             
-            //     let select = document.getElementById("timeslot");
-            //     select.innerHTML = ""; // 清空舊選項
+                let select = document.getElementById("timeslot");
+                select.innerHTML = ""; // 清空舊選項
             
-            //     // 🔹 動態加入可預約時段
-            //     data.slots.forEach(timeSlot => {
-            //         let option = document.createElement("option");
-            //         option.value = timeSlot;
-            //         option.textContent = timeSlot;
-            //         select.appendChild(option);
-            //     });
+                // 🔹 動態加入可預約時段
+                data.slots.forEach(timeSlot => {
+                    let option = document.createElement("option");
+                    option.value = timeSlot;
+                    option.textContent = timeSlot;
+                    select.appendChild(option);
+                });
             
-            // } catch (error) {
-            //     console.error("取得時段失敗", error);
-            // }
-            const response = await fetch(cloudflareUrl);
-            const data = await response.json();
-
-            const slotList = document.getElementById("timeslot");
-            slotList.innerHTML = "";
-
-            data.slots.forEach(slot => {
-                const li = document.createElement("li");
-                li.textContent = `${slot.date} ${slot.time}`;
-                li.style.cursor = "pointer";
-                li.onclick = () => {
-                    selectedSlot = slot;
-                    alert(`已選擇：${slot.date} ${slot.time}`);
-                };
-                slotList.appendChild(li);
-            });
+            } catch (error) {
+                console.error("取得時段失敗", error);
+            }
 
             // fetch(`${cloudflareUrl}`, {
             //     method: 'GET',
