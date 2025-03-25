@@ -48,7 +48,7 @@
                 <textarea class="form-control" id="remarks"></textarea>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
-
+            
         </form>
     </div>
     <p id="errorMessage" style="display: none; text-align: center; color: red;">請重新開啟！</p>
@@ -68,67 +68,67 @@
                 remarks: document.getElementById("remarks").value,
             };
             let response = await fetch(`${cloudflareUrl}`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" }
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" }
             });
-
+            
             let result = await response.text();
             alert(result);
             alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
             // alert(`${data.lineId} 資料已儲存！`);
         }
-
+        
         async function initLIFF() {
-          fetch(`${cloudflareUrl}liff-id`)
-          .then(res => res.json())
-          .then(data => {
-            if (!data.LIFF_ID) {
+            try {
+                const res = await fetch(`${cloudflareUrl}liff-id`);
+                const data = await res.json();
+                
+                if (!data.LIFF_ID) {
                     throw new Error("沒有設定 LIFF ID，將嘗試從 URL 讀取 lineId...");
                 }
-
-                await liff.init({ liffId: data.LIFF_ID });
-
+                
+                await liff.init({ liffId: data.LIFF_ID, withLoginOnExternalBrowser: true });
+                
                 if (!liff.isLoggedIn()) {
-                    // document.getElementById("status").innerHTML = "請先登入 LINE...";
                     liff.login();
                     return;
                 }
-
+                
                 const profile = await liff.getProfile();
                 document.getElementById("lineId").value = profile.userId;
                 await dataSearch(profile.userId);
-                //顯示畫面
+                
+                // 顯示畫面
                 document.getElementById("content").style.display = "block";
                 document.getElementById("errorMessage").style.display = "none";
                 document.getElementById("reloadPage").style.display = "none";
-          })
-          .then(() => {
-            console.log("LIFF 初始化成功");
-          })
-          .catch(err => {
-              console.warn("LIFF 初始化失敗，錯誤訊息:", error);
-              getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
-          });
+                
+                console.log("LIFF 初始化成功");
+            } catch (err) {
+                console.warn("LIFF 初始化失敗，錯誤訊息:", err);
+                getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
+            }
         }
+        
         async function dataSearch(lineID) {
             // try {
             //     let response = await fetch(`https://script.google.com/macros/s/${GAS_ID}/exec`, {
             //         method: "GET",
             //         headers: { "Content-Type": "application/json" }
             //     });
-
+            
             //     let data = await response.json();
             //     console.log("取得的資料:", data); // 🔹 確保資料正確回傳
-
+            
             //     if (!data || !data.slots || !Array.isArray(data.slots)) {
             //         console.error("錯誤: 時段資料格式錯誤或不存在");
             //         return;
             //     }
-
+            
             //     let select = document.getElementById("timeslot");
             //     select.innerHTML = ""; // 清空舊選項
-                
+            
             //     // 🔹 動態加入可預約時段
             //     data.slots.forEach(timeSlot => {
             //         let option = document.createElement("option");
@@ -136,59 +136,59 @@
             //         option.textContent = timeSlot;
             //         select.appendChild(option);
             //     });
-
+            
             // } catch (error) {
             //     console.error("取得時段失敗", error);
             // }
             fetch(`${cloudflareUrl}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }})
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);  // 確認返回的 JSON 格式是否正確
-                let select = document.getElementById("timeslot");
-                select.innerHTML = "";  // 清空舊選項
-
-                data.slots.forEach(timeSlot => {
-                let option = document.createElement("option");
-                option.value = timeSlot;
-                option.textContent = timeSlot;
-                select.appendChild(option);
-                });
-            })
-            .catch(error => console.error("取得時段失敗", error));
-
-        }
-        async function getLineIdFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const lineId = urlParams.get("lineId");
-
-            if (lineId) {
-                document.getElementById("lineId").value = lineId;
-                await dataSearch(lineId);
-                // 顯示畫面
-                document.getElementById("content").style.display = "block";
-                document.getElementById("errorMessage").style.display = "none";
-                document.getElementById("reloadPage").style.display = "none";
-            } else {
-                // 顯示錯誤訊息
-                document.getElementById("content").style.display = "none";
-                document.getElementById("errorMessage").style.display = "block";
-                document.getElementById("reloadPage").style.display = "block";
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }})
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);  // 確認返回的 JSON 格式是否正確
+                    let select = document.getElementById("timeslot");
+                    select.innerHTML = "";  // 清空舊選項
+                    
+                    data.slots.forEach(timeSlot => {
+                        let option = document.createElement("option");
+                        option.value = timeSlot;
+                        option.textContent = timeSlot;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("取得時段失敗", error));
+                
             }
-        }
-
-        function reloadPage() {
-            location.reload();
-        }
-        document.getElementById("name").value = "123";
-        document.getElementById("phone").value = "12663";
-        // 初始化 LIFF 或從 URL 讀取 lineId
-        window.onload = async () => {
-            await initLIFF();
-        };
-    </script>
-</body>
-</html>
+            async function getLineIdFromURL() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const lineId = urlParams.get("lineId");
+                
+                if (lineId) {
+                    document.getElementById("lineId").value = lineId;
+                    await dataSearch(lineId);
+                    // 顯示畫面
+                    document.getElementById("content").style.display = "block";
+                    document.getElementById("errorMessage").style.display = "none";
+                    document.getElementById("reloadPage").style.display = "none";
+                } else {
+                    // 顯示錯誤訊息
+                    document.getElementById("content").style.display = "none";
+                    document.getElementById("errorMessage").style.display = "block";
+                    document.getElementById("reloadPage").style.display = "block";
+                }
+            }
+            
+            function reloadPage() {
+                location.reload();
+            }
+            document.getElementById("name").value = "123";
+            document.getElementById("phone").value = "12663";
+            // 初始化 LIFF 或從 URL 讀取 lineId
+            window.onload = async () => {
+                await initLIFF();
+            };
+        </script>
+    </body>
+    </html>
