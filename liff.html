@@ -191,6 +191,7 @@
         async function dataSearch(lineID) {
             var data1 = {
                 lineId: lineID,
+                search: true,
             };
             try {
                 let response = await fetch(`${cloudflareUrl}`, {
