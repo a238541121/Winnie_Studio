@@ -188,13 +188,13 @@
         }
         
         async function dataSearch(lineID) {
-            var data = {
+            var data1 = {
                 lineId: lineID,
             };
             try {
                 let response = await fetch(`${cloudflareUrl}`, {
                     method: "POST",
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(data1),
                     headers: { "Content-Type": "application/json" }
                 });
                 console.log(response);
