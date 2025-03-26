@@ -97,13 +97,14 @@
                         Swal.showValidationMessage("請輸入 0-20 之間的數字");
                         return false;
                     }
-                    return { nailExtension: parseInt(nailExtensionValue, 10) };
+                    return { nailNum: parseInt(nailNumValue, 10) };
                 }
             });
             if(!confirmresult.isConfirmed){
                 return;
             }
             else{
+                data.nailNum = confirmresult.value.nailNum;
                 try {
                     let response = await fetch(`${cloudflareUrl}`, {
                         method: "POST",
@@ -251,6 +252,7 @@
             location.reload();
         }
         function toggleItem(){
+            document.getElementById("nailNum").value = "0";
             var nailNumField = document.getElementById("nailNumField");
             var item = document.getElementById("item").value;
             
