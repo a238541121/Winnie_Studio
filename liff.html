@@ -189,33 +189,33 @@
         }
         
         async function dataSearch(lineID) {
-            var data1 = {
+            var data = {
                 lineId: lineID,
                 search: "true",
             };
             try {
                 let response = await fetch(`${cloudflareUrl}`, {
                     method: "POST",
-                    body: JSON.stringify(data1),
+                    body: JSON.stringify(data),
                     headers: { "Content-Type": "application/json" }
                 });
                 console.log(response);
-                let data = JSON.parse(await response.text());
-                console.log("取得的資料:", data.message); // 🔹 確保資料正確回傳
+                let data1 = JSON.parse(await response.text());
+                console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
                 
-                if (!data || !data.message || !Array.isArray(data.message)) {
+                if (!data1 || !data1.message || !Array.isArray(data1.message)) {
                     console.error("錯誤: 時段資料格式錯誤或不存在");
                     return;
                 }
-                if (data.isMember == false){
+                if (data1.isMember == false){
                     document.getElementById("name").value = "";
                     document.getElementById("phone").value = "";
                     document.getElementById("name").readOnly = "false";
                     document.getElementById("phone").readOnly = "false";
                 }
                 else{
-                    document.getElementById("name").value = data.name;
-                    document.getElementById("phone").value = data.phone;
+                    document.getElementById("name").value = data1.name;
+                    document.getElementById("phone").value = data1.phone;
                     document.getElementById("name").readOnly = "true";
                     document.getElementById("phone").readOnly = "true";
                 }
@@ -223,7 +223,7 @@
                 select.innerHTML = ""; // 清空舊選項
                 
                 // 🔹 動態加入可預約時段
-                data.message.forEach(timeSlot => {
+                data1.message.forEach(timeSlot => {
                     let option = document.createElement("option");
                     option.value = timeSlot;
                     option.textContent = timeSlot;
