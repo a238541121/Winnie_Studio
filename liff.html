@@ -89,7 +89,7 @@
                 `,
                 icon: "info",
                 showCancelButton: true,
-                confirmButtonText: "確認送出",
+                confirmButtonText: "送出",
                 cancelButtonText: "取消",
                 preConfirm: () => {
                     let nailNumValue = document.getElementById("nailNum")?.value || "0";
@@ -194,6 +194,7 @@
                     body: JSON.stringify({lineID}),
                     headers: { "Content-Type": "application/json" }
                 });
+                console.log(response);
                 let data = JSON.parse(await response.text());
                 console.log("取得的資料:", data.message); // 🔹 確保資料正確回傳
                 
@@ -252,12 +253,12 @@
             location.reload();
         }
         function toggleItem(){
-            document.getElementById("nailNum").value = "0";
             var nailNumField = document.getElementById("nailNumField");
             var item = document.getElementById("item").value;
             
             if(item === "上睫毛" || item === "上下睫毛"){
                 nailNumField.style.display = "none";
+                document.getElementById("nailNum").value = "0";
             }
             else{
                 nailNumField.style.display = "block";
