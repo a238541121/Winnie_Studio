@@ -113,6 +113,7 @@
                     });
                     
                     if (response.ok) {
+                        console.log(await response.text());
                         let result = JSON.parse(await response.text());  // 解析返回的 JSON
                         console.log(result.status, result.message);  // 處理結果
                         if(result.status === false){
