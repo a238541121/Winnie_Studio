@@ -84,7 +84,7 @@
                     <p><strong>電話:</strong> ${data.phone}</p>
                     <p><strong>時段:</strong> ${data.timeslot}</p>
                     <p><strong>項目:</strong> ${data.item}</p>
-                    ${data.item === "上睫毛" || data.item === "上下睫毛" ? `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>` : ""}
+                    ${data.item === "上睫毛" || data.item === "上下睫毛" ? "" : `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>`}
                     <p><strong>備註:</strong> ${data.remarks}</p>
                 `,
                 icon: "info",
