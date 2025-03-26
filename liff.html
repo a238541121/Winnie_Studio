@@ -149,7 +149,6 @@
             try {
                 const res = await fetch(`${cloudflareUrl}liff-id`);
                 const data = JSON.parse(await res.text());
-                console.log(data);
                 if (!data.LIFF_ID) {
                     throw new Error("沒有設定 LIFF ID，將嘗試從 URL 讀取 lineId...");
                 }
@@ -162,7 +161,7 @@
                 }
                 
                 const profile = await liff.getProfile();
-                document.getElementById("lineId").value = profile.userId;
+                // document.getElementById("lineId").value = profile.userId;
                 await dataSearch(profile.userId);
                 
                 // 顯示畫面
