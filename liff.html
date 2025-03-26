@@ -104,8 +104,7 @@
                 return;
             }
             else{
-                data.nailNum = confirmresult.value.nailNum;
-                console.log(data);
+                // data.nailNum = confirmresult.value.nailNum;
                 try {
                     let response = await fetch(`${cloudflareUrl}`, {
                         method: "POST",
@@ -114,7 +113,6 @@
                     });
                     
                     if (response.ok) {
-                        console.log(await response.json());
                         let result = JSON.parse(await response.text());  // 解析返回的 JSON
                         console.log(result.status, result.message);  // 處理結果
                         if(result.status === false){
