@@ -253,12 +253,12 @@
             }
         }
         // 初始化 LIFF 或從 URL 讀取 lineId
-        // window.onload = async () => {
-        //     await initLIFF();
-        // };
-        document.addEventListener("DOMContentLoaded", async function () {
+        window.onload = async () => {
             await initLIFF();
-        });
+        };
+        // document.addEventListener("DOMContentLoaded", async function () {
+        //     await initLIFF();
+        // });
         
     </script>
 </body>
