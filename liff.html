@@ -39,8 +39,8 @@
                 <select class="form-select" id="timeslot"><option value="">請選擇時段</option></select>
             </div>
             <div class="mb-3">
-                <label for="item" class="form-label">項目</label>
-                <select id="item" onchange="toggleItem()">
+                <label for="item" class="form-label d-block">項目</label>
+                <select id="item" class="form-select" onchange="toggleItem()">
                     <option value="手足">手足</option>
                     <option value="手">手</option>
                     <option value="足">足</option>
@@ -84,12 +84,21 @@
                     <p><strong>電話:</strong> ${data.phone}</p>
                     <p><strong>時段:</strong> ${data.timeslot}</p>
                     <p><strong>項目:</strong> ${data.item}</p>
+                    ${data.item === "上睫毛" || data.item === "上下睫毛" ? `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>` : ""}
                     <p><strong>備註:</strong> ${data.remarks}</p>
                 `,
                 icon: "info",
                 showCancelButton: true,
                 confirmButtonText: "確認送出",
                 cancelButtonText: "取消",
+                preConfirm: () => {
+                    let nailNumValue = document.getElementById("nailNum")?.value || "0";
+                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20) {
+                        Swal.showValidationMessage("請輸入 0-20 之間的數字");
+                        return false;
+                    }
+                    return { nailExtension: parseInt(nailExtensionValue, 10) };
+                }
             });
             if(!confirmresult.isConfirmed){
                 return;
@@ -193,14 +202,14 @@
                 if (data.isMember == false){
                     document.getElementById("name").value = "";
                     document.getElementById("phone").value = "";
-                    document.getElementById("name").ariaReadOnly = "false";
-                    document.getElementById("phone").ariaReadOnly = "false";
+                    document.getElementById("name").readOnly = "false";
+                    document.getElementById("phone").readOnly = "false";
                 }
                 else{
                     document.getElementById("name").value = data.name;
                     document.getElementById("phone").value = data.phone;
-                    document.getElementById("name").ariaReadOnly = "true";
-                    document.getElementById("phone").ariaReadOnly = "true";
+                    document.getElementById("name").readOnly = "true";
+                    document.getElementById("phone").readOnly = "true";
                 }
                 let select = document.getElementById("timeslot");
                 select.innerHTML = ""; // 清空舊選項
@@ -241,7 +250,7 @@
             location.reload();
         }
         function toggleItem(){
-            var nailNumField = document.getElementById("nailNumField").value;
+            var nailNumField = document.getElementById("nailNumField");
             var item = document.getElementById("item").value;
             
             if(item === "上睫毛" && item === "上下睫毛"){
