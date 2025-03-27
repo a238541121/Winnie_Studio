@@ -12,12 +12,11 @@
     />
     <style>
         body {
-            background: rgba(245, 195, 140, 0.8);
+            background: url("https://drive.google.com/file/d/1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2/view?usp=share_link") no-repeat center fixed;
             background-size: cover;
             background-position: center;
             font-family: Arial, sans-serif;
         }
-        .errContainer
         .container {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
@@ -38,24 +37,49 @@
             margin: auto;
             animation: spin 2s linear infinite;
         }
-        .form-errorMessage {
-            background: rgba(255, 255, 255, 0.8);
+        /* 錯誤訊息容器 */
+        .errContainer {
+            display: flex;
+            flex-wrap: wrap; /* 小螢幕時自動換行 */
+            justify-content: center;
+            gap: 10px; /* 控制間距 */
+            flex-direction: column;  /* 讓內容上下排列 */
+            align-items: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
-            margin-top: 50px;
-            text-align: center;
-            color: red;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            min-width: 250px;
+            width: 320px; /* 限制最大寬度 */
         }
-        /* .btn-reloadPage{
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        } */
+        
+        /* 訊息標籤 */
+        .form-errorMessage {
+            font-size: 18px;
+            color: #d9534f; /* 紅色錯誤訊息 */
+            font-weight: bold;
+            margin-bottom: 10px;
+            flex-basis: 100%; /* 讓錯誤訊息佔滿一整行 */
+        }
+        
+        /* 重新載入按鈕 */
+        .btn-reloadPage {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .btn-reloadPage:hover {
+            background-color: #0056b3;
+        }
+        
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
