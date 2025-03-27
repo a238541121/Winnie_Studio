@@ -12,7 +12,7 @@
     />
     <style>
         body {
-            background: url("https://drive.google.com/uc?export=view&id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2");
+            background: url('https://drive.google.com/uc?export=view&id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -20,7 +20,7 @@
         }
         .container {
             background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
+            padding: 50px;
             border-radius: 10px;
             margin-top: 50px;
         }
@@ -348,12 +348,12 @@ async function getLineIdFromURL() {
         document.getElementById("lineId").value = lineId;
         await dataSearch(lineId);
         // 顯示畫面
-        document.getElementById("content").style.display = "block";
-        document.getElementById("errContainer").style.display = "none";
+        // document.getElementById("content").style.display = "block";
+        // document.getElementById("errContainer").style.display = "none";
     } else {
         // 顯示錯誤訊息
-        document.getElementById("content").style.display = "none";
-        document.getElementById("errContainer").style.display = "block";
+        // document.getElementById("content").style.display = "none";
+        // document.getElementById("errContainer").style.display = "block";
     }
 }
 
