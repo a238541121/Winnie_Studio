@@ -37,7 +37,19 @@
         margin: auto;
         animation: spin 2s linear infinite;
       }
-
+      .errorMessage {
+        display: none;
+        text-align: center;
+        color: red;
+      }
+      .btn-primary{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -101,15 +113,14 @@
         </button>
       </form>
     </div>
-    
-    <p id="errorMessage" style="display: none; text-align: center; color: red">
-      請重新開啟！
-    </p>
+    <div class="errorMessage" id="errorMessage">
+      <p>請重新開啟！</p>
+    </div>
     <div class="reloadpage">
       <button
         style="display: none"
         id="reloadPage"
-        class="btn btn-primary"
+        class="btn-primary"
         onclick="reloadPage()"
       >
         重新載入
