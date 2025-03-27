@@ -113,7 +113,7 @@
                     });
                     if (response.ok) {
                         let result = JSON.parse(await response.text());  // 解析返回的 JSON
-                        console.log(result.isSuc, result.retFaiReason);  // 處理結果
+                        console.log(result);  // 處理結果
                         if(result.isSuc === false){
                             let confirm_appointFai = await Swal.fire({
                                 title: "預約失敗",
