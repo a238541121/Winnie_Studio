@@ -69,13 +69,13 @@
         // 取得並顯示 lineId
         async function sendSubmit() {
             var data = {
-                lineId: "Ub7eb3e04082553058d21233d52ac68d8",
-                name: document.getElementById("name").value,
-                phone: document.getElementById("phone").value,
-                timeslot: document.getElementById("timeslot").value,
-                item: document.getElementById("item").value,
-                nailNum: document.getElementById("nailNum").value,
-                remarks: document.getElementById("remarks").value,
+                lineId: sessionStorage.getItem("lineId"),
+                name: document.getElementById("name").value.trim() || null,
+                phone: document.getElementById("phone").value.trim() || null,
+                timeslot: document.getElementById("timeslot").value || null,
+                item: document.getElementById("item").value || null,
+                nailNum: document.getElementById("nailNum").value !== "" ? Number(document.getElementById("nailNum").value) : null,
+                remarks: document.getElementById("remarks").value.trim() || null,
             };
             let confirmresult = await Swal.fire({
                 title: "請確認您的預約資料",
