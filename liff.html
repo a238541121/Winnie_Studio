@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <img src="https://drive.google.com/thumbnail?id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2" alt="Google Drive Image">
+    <img src="https://drive.google.com/thumbnail?id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2" alt="Google Drive Image" class="background-image">
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8" />
@@ -14,13 +14,22 @@
     <style>
         body {
             /* background: url('https://drive.google.com/uc?export=view&id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2'); */
-            background-size: cover;
+            /* background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: no-repeat; */
             font-family: Arial, sans-serif;
         }
+        .background-image {
+            position: fixed; /* 固定背景 */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* 讓圖片填滿畫面 */
+            z-index: -1; /* 設定背景層 */
+            filter: blur(8px); /* 加上模糊效果 */
+        }
         .container {
-            display: none;
             background: rgba(255, 255, 255, 0.8);
             padding: 100px;
             border-radius: 10px;
@@ -42,7 +51,6 @@
         }
         /* 錯誤訊息容器 */
         .errContainer {
-            display: none;
             position: absolute; /* 讓它能夠相對於視窗定位 */
             top: 50%;
             left: 50%;
@@ -77,7 +85,7 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
         
         .btn-reloadPage:hover {
@@ -96,8 +104,8 @@
 </head>
 <body>
     <div class="loader" id="loader"></div>
-    <div class="container" id="content">
-        <h2 class="text-center">美甲＆睫毛管理預約</h2>
+    <div class="container" id="content" style="display: none;">
+        <h2 class="text-center">填寫預約</h2>
         <form id="bookingForm">
             <div class="mb-3">
                 <label for="name" class="form-label">姓名</label>
@@ -141,7 +149,7 @@
             <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
         </form>
     </div>
-    <div class="errContainer" id="errContainer">
+    <div class="errContainer" id="errContainer" style="display: none;">
         <label for="errorMessage" class="form-errorMessage">請重新開啟！</label>
         <button id="reloadPage" class="btn-reloadPage" onclick="reloadPage()">重新載入</button>
     </div>
