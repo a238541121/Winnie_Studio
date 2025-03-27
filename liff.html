@@ -12,9 +12,10 @@
     />
     <style>
         body {
-            background: url("https://drive.google.com/uc?export=view&id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2") no-repeat center fixed;
+            background: url("https://drive.google.com/uc?export=view&id=1JWsYM27l4WR4x9b4Qfk1d7BiZ6Jidgz2");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             font-family: Arial, sans-serif;
         }
         .container {
@@ -39,20 +40,19 @@
         }
         /* 錯誤訊息容器 */
         .errContainer {
+            position: absolute; /* 讓它能夠相對於視窗定位 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 完全置中 */
             display: flex;
-            flex-wrap: wrap; /* 小螢幕時自動換行 */
-            justify-content: center;
-            gap: 10px; /* 控制間距 */
             flex-direction: column;  /* 讓內容上下排列 */
             align-items: center;
             text-align: center;
-            background: rgba(246, 231, 195, 0.563);
+            background: rgba(244, 213, 171, 0.673);
             padding: 20px;
             border-radius: 10px;
-            margin-top: 50px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             max-width: 90%;
-            min-width: 250px;
             width: 320px; /* 限制最大寬度 */
         }
         
