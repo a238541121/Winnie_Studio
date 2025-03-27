@@ -77,7 +77,7 @@
             </div>
             <div class="mb-3">
                 <label for="remarks" class="form-label">備註</label>
-                <textarea class="form-control" id="remarks"></textarea>
+                <textarea class="form-control" id="remarks" required></textarea>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
             
@@ -136,11 +136,11 @@
                     });
                     if (response.ok) {
                         let result = JSON.parse(await response.text());  // 解析返回的 JSON
-                        console.log(result.isSuc, result.rtnMes);  // 處理結果
+                        console.log(result.isSuc, result.retFaiReason);  // 處理結果
                         if(result.isSuc === false){
                             let confirm_appointFai = await Swal.fire({
                                 title: "預約失敗",
-                                text: `${result.rtnMes}`,
+                                text: `${result.retFaiReason}`,
                                 icon: "error",
                                 confirmButtonText: "OK",
                             });
@@ -148,7 +148,14 @@
                         else{
                             let confirm_appointSuc = await Swal.fire({
                                 title: "預約成功",
-                                text: `${result.rtnMes}`,
+                                html: `
+                                    <p><strong>姓名:</strong> ${result.retName}</p>
+                                    <p><strong>電話:</strong> ${result.retPhone}</p>
+                                    <p><strong>時段:</strong> ${result.retTimeSlot}</p>
+                                    <p><strong>項目:</strong> ${result.retItem}</p>
+                                    ${result.retItem === "上睫毛" || result.retItem === "上下睫毛" ? "" : `<p><strong>需延甲幾指:</strong> ${result.retNailNum}</p>`}
+                                    <p><strong>備註:</strong> ${result.retRemarks}</p>
+                                `,
                                 icon: "success",
                                 confirmButtonText: "OK",
                             });
