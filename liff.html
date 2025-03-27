@@ -38,12 +38,12 @@
             margin: auto;
             animation: spin 2s linear infinite;
         }
-        .errorMessage {
+        .form-errorMessage {
             display: none;
             text-align: center;
             color: red;
         }
-        /* .btn-primary{
+        /* .btn-reloadPage{
         position: absolute;
         width: 100px;
         height: 100px;
@@ -111,12 +111,8 @@
         </form>
     </div>
     <div class="errContainer" id="errContainer">
-        <div class="errorMessage" id="errorMessage">
-            <p>請重新開啟！</p>
-        </div>
-        <div class="reloadpage">
-            <button id="reloadPage" class="button btn-primary" onclick="reloadPage()">重新載入</button>
-        </div>
+        <label for="errorMessage" class="form-errorMessage">請重新開啟！</label>
+        <button id="reloadPage" class="btn-reloadPage" onclick="reloadPage()">重新載入</button>
     </div>
     <script>
         let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
