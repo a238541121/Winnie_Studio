@@ -101,10 +101,11 @@
         </button>
       </form>
     </div>
+    
     <p id="errorMessage" style="display: none; text-align: center; color: red">
       請重新開啟！
     </p>
-    <div class="meta">
+    <div class="reloadpage">
       <button
         style="display: none"
         id="reloadPage"
@@ -257,9 +258,9 @@
           await dataSearch(profile.userId);
 
           // 顯示畫面
-          document.getElementById("content").style.display = "block";
-          document.getElementById("errorMessage").style.display = "none";
-          document.getElementById("reloadPage").style.display = "none";
+          document.getElementById("content").style.display = "none";
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("reloadPage").style.display = "block";
 
           console.log("LIFF 初始化成功");
         } catch (err) {
