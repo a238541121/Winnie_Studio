@@ -111,14 +111,13 @@
                         body: JSON.stringify(data),
                         headers: { "Content-Type": "application/json" }
                     });
-                    let text = await response.text();
                     if (response.ok) {
-                        let result = JSON.parse(text);  // 解析返回的 JSON
-                        console.log(result.status, result.message);  // 處理結果
-                        if(result.status === false){
+                        let result = JSON.parse(await response.text());;  // 解析返回的 JSON
+                        console.log(result.isSuc, result.rtnMes);  // 處理結果
+                        if(result.isSuc === false){
                             let confirm_appointFai = await Swal.fire({
                                 title: "預約失敗",
-                                text: `${result.message}`,
+                                text: `${result.rtnMes}`,
                                 icon: "error",
                                 confirmButtonText: "OK",
                             });
@@ -126,7 +125,7 @@
                         else{
                             let confirm_appointSuc = await Swal.fire({
                                 title: "預約成功",
-                                text: `${result.message}`,
+                                text: `${result.rtnMes}`,
                                 icon: "success",
                                 confirmButtonText: "OK",
                             });
