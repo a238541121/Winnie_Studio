@@ -28,7 +28,7 @@
         <form id="bookingForm">
             <div class="mb-3">
                 <label for="name" class="form-label">姓名</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" aria-required="true" class="form-control" id="name">
             </div>
             <div class="mb-3">
                 <label for="phone" class="form-label">電話</label>
@@ -75,7 +75,7 @@
                 timeslot: document.getElementById("timeslot").value || null,
                 item: document.getElementById("item").value || null,
                 nailNum: document.getElementById("nailNum").value !== "" ? Number(document.getElementById("nailNum").value) : null,
-                remarks: document.getElementById("remarks").value.trim() || null,
+                remarks: document.getElementById("remarks").value.trim() || "",
             };
             let confirmresult = await Swal.fire({
                 title: "請確認您的預約資料",
