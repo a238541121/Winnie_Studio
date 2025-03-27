@@ -284,10 +284,6 @@ async function initLIFF() {
         // document.getElementById("lineId").value = profile.userId;
         await dataSearch(profile.userId);
         
-        // 顯示畫面
-        document.getElementById("content").style.display = "none";
-        document.getElementById("errContainer").style.display = "block";
-        
         console.log("LIFF 初始化成功");
     } catch (err) {
         console.warn("LIFF 初始化失敗，錯誤訊息:", err);
@@ -336,6 +332,9 @@ async function dataSearch(lineID) {
             select.appendChild(option);
         });
         
+        // 顯示畫面
+        document.getElementById("content").style.display = "block";
+        document.getElementById("errContainer").style.display = "none";
         document.getElementById("loader").style.display = "none";
     } catch (error) {
         console.error("取得時段失敗", error);
