@@ -1,300 +1,353 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
+  <head>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>美甲＆睫毛管理預約表單</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
     <style>
-        body {
-            background: rgba(245, 195, 140, 0.8);
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
+      body {
+        background: rgba(245, 195, 140, 0.8);
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+      }
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        .container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 50px;
+        100% {
+          transform: rotate(360deg);
         }
-        .loader-inner {
-        margin: 30px;
-        }
+      }
     </style>
-</head>
-<body>
-    <div class="col-xs-4" id="loader">
-        <div class="loader-inner ball-spin-fade-loader"></div>
-      </div>
-    <div class="container" id="content" style="display: none;">
-        <h2 class="text-center">美甲＆睫毛管理預約</h2>
-        <form id="bookingForm">
-            <div class="mb-3">
-                <label for="name" class="form-label">姓名</label>
-                <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">電話</label>
-                <input type="tel" class="form-control" id="phone" required>
-            </div>
-            <div class="mb-3">
-                <label for="timeslot" class="form-label">時段</label>
-                <select class="form-select" id="timeslot"><option value="">請選擇時段</option></select>
-            </div>
-            <div class="mb-3">
-                <label for="item" class="form-label d-block">項目</label>
-                <select id="item" class="form-select" onchange="toggleItem()">
-                    <option value="手足">手足</option>
-                    <option value="手">手</option>
-                    <option value="足">足</option>
-                    <option value="上睫毛">上睫毛</option>
-                    <option value="上下睫毛">上下睫毛</option>
-                </select>
-            </div>
-            <div class="mb-3" id="nailNumField">
-                <label for="nailNum" class="form-label">需延甲幾指</label>
-                <input type="number" class="form-control" id="nailNum" value="0" min="0" max="20">
-            </div>
-            <div class="mb-3">
-                <label for="remarks" class="form-label">備註</label>
-                <textarea class="form-control" id="remarks" required></textarea>
-            </div>
-            <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
-            
-        </form>
+  </head>
+  <body>
+    <div class="loader"></div>
+    <div class="container" id="content" style="display: none">
+      <h2 class="text-center">美甲＆睫毛管理預約</h2>
+      <form id="bookingForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">姓名</label>
+          <input type="text" class="form-control" id="name" required />
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">電話</label>
+          <input type="tel" class="form-control" id="phone" required />
+        </div>
+        <div class="mb-3">
+          <label for="timeslot" class="form-label">時段</label>
+          <select class="form-select" id="timeslot">
+            <option value="">請選擇時段</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="item" class="form-label d-block">項目</label>
+          <select id="item" class="form-select" onchange="toggleItem()">
+            <option value="手足">手足</option>
+            <option value="手">手</option>
+            <option value="足">足</option>
+            <option value="上睫毛">上睫毛</option>
+            <option value="上下睫毛">上下睫毛</option>
+          </select>
+        </div>
+        <div class="mb-3" id="nailNumField">
+          <label for="nailNum" class="form-label">需延甲幾指</label>
+          <input
+            type="number"
+            class="form-control"
+            id="nailNum"
+            value="0"
+            min="0"
+            max="20"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="remarks" class="form-label">備註</label>
+          <textarea class="form-control" id="remarks" required></textarea>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary w-100"
+          onclick="sendSubmit()"
+        >
+          送出預約
+        </button>
+      </form>
     </div>
-    <p id="errorMessage" style="display: none; text-align: center; color: red;">請重新開啟！</p>
+    <p id="errorMessage" style="display: none; text-align: center; color: red">
+      請重新開啟！
+    </p>
     <div class="meta">
-        <button style="display: none;" id="reloadPage" class="btn btn-primary" onclick="reloadPage()">重新載入</button>
+      <button
+        style="display: none"
+        id="reloadPage"
+        class="btn btn-primary"
+        onclick="reloadPage()"
+      >
+        重新載入
+      </button>
     </div>
     <script>
-        let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
-        // 取得並顯示 lineId
-        async function sendSubmit() {
-            var data = {
-                lineId: sessionStorage.getItem("lineId"),
-                name: document.getElementById("name").value.trim() || null,
-                phone: document.getElementById("phone").value.trim() || null,
-                timeslot: document.getElementById("timeslot").value || null,
-                item: document.getElementById("item").value || null,
-                nailNum: document.getElementById("nailNum").value !== "" ? Number(document.getElementById("nailNum").value) : null,
-                remarks: document.getElementById("remarks").value.trim() || "",
-            };
-            let confirmresult = await Swal.fire({
-                title: "請確認您的預約資料",
-                html: `
+      let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
+      // 取得並顯示 lineId
+      async function sendSubmit() {
+        var data = {
+          lineId: sessionStorage.getItem("lineId"),
+          name: document.getElementById("name").value.trim() || null,
+          phone: document.getElementById("phone").value.trim() || null,
+          timeslot: document.getElementById("timeslot").value || null,
+          item: document.getElementById("item").value || null,
+          nailNum:
+            document.getElementById("nailNum").value !== ""
+              ? Number(document.getElementById("nailNum").value)
+              : null,
+          remarks: document.getElementById("remarks").value.trim() || "",
+        };
+        let confirmresult = await Swal.fire({
+          title: "請確認您的預約資料",
+          html: `
                     <p><strong>姓名:</strong> ${data.name}</p>
                     <p><strong>電話:</strong> ${data.phone}</p>
                     <p><strong>時段:</strong> ${data.timeslot}</p>
                     <p><strong>項目:</strong> ${data.item}</p>
-                    ${data.item === "上睫毛" || data.item === "上下睫毛" ? "" : `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>`}
+                    ${
+                      data.item === "上睫毛" || data.item === "上下睫毛"
+                        ? ""
+                        : `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>`
+                    }
                     <p><strong>備註:</strong> ${data.remarks}</p>
                 `,
-                icon: "info",
-                showCancelButton: true,
-                confirmButtonText: "送出",
-                cancelButtonText: "取消",
-                preConfirm: () => {
-                    let nailNumValue = document.getElementById("nailNum")?.value || "0";
-                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20) {
-                        Swal.showValidationMessage("請輸入 0-20 之間的數字");
-                        return false;
-                    }
-                    return { nailNum: parseInt(nailNumValue, 10) };
-                }
-            });
-            if(!confirmresult.isConfirmed){
-                return;
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "送出",
+          cancelButtonText: "取消",
+          preConfirm: () => {
+            let nailNumValue = document.getElementById("nailNum")?.value || "0";
+            if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20) {
+              Swal.showValidationMessage("請輸入 0-20 之間的數字");
+              return false;
             }
-            else{
-                // data.nailNum = confirmresult.value.nailNum;
-                try {
-                    let response = await fetch(`${cloudflareUrl}`, {
-                        method: "POST",
-                        body: JSON.stringify(data),
-                        headers: { "Content-Type": "application/json" }
-                    });
-                    if (response.ok) {
-                        let result = JSON.parse(await response.text());  // 解析返回的 JSON
-                        console.log(result);  // 處理結果
-                        if(result.isSuc === false){
-                            let confirm_appointFai = await Swal.fire({
-                                title: "預約失敗",
-                                text: `${result.retFaiReason}`,
-                                icon: "error",
-                                confirmButtonText: "OK",
-                            });
-                        }
-                        else{
-                            let confirm_appointSuc = await Swal.fire({
-                                title: "預約成功",
-                                html: `
-                                    <p><strong>姓名:</strong> ${result.retName}</p>
-                                    <p><strong>電話:</strong> ${result.retPhone}</p>
-                                    <p><strong>時段:</strong> ${result.retTimeSlot}</p>
-                                    <p><strong>項目:</strong> ${result.retItem}</p>
-                                    ${result.retItem === "上睫毛" || result.retItem === "上下睫毛" ? "" : `<p><strong>需延甲幾指:</strong> ${result.retNailNum}</p>`}
-                                    <p><strong>備註:</strong> ${result.retRemarks}</p>
-                                `,
-                                icon: "success",
-                                confirmButtonText: "OK",
-                            });
-                            if(confirm_appointSuc) window.close();
-                        }
-                        
-                    }
-                    else {
-                        console.error('預約失敗:', response.statusText);
-                        let confirm_Fai = await Swal.fire({
-                            title: "出了一點問題",
-                            text: `${response.statusText}`,
-                            icon: "error",
-                            confirmButtonText: "重試",
-                            cancelButtonText: "取消",
-                        });
-                        if (confirm_Fai) {
-                            sendSubmit();
-                        }
-                        else{
-                            return;
-                        }
-                    }
-                } catch (error) {
-                    console.error('錯誤:', error);
-                    alert("發生錯誤，請檢查網路或稍後再試！");
-                }
-            }
-            
-            // alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
-            // alert(`${data.lineId} 資料已儲存！`);
-        }
-        
-        async function initLIFF() {
-            try {
-                const res = await fetch(`${cloudflareUrl}liff-id`);
-                const data = JSON.parse(await res.text());
-                if (!data.LIFF_ID) {
-                    throw new Error("沒有設定 LIFF ID，將嘗試從 URL 讀取 lineId...");
-                }
-                
-                await liff.init({ liffId: data.LIFF_ID, withLoginOnExternalBrowser: true });
-                
-                if (!liff.isLoggedIn()) {
-                    liff.login();
-                    return;
-                }
-                
-                const profile = await liff.getProfile();
-                sessionStorage.setItem("lineId", profile.userId);
-                // document.getElementById("lineId").value = profile.userId;
-                await dataSearch(profile.userId);
-                
-                // 顯示畫面
-                document.getElementById("content").style.display = "block";
-                document.getElementById("errorMessage").style.display = "none";
-                document.getElementById("reloadPage").style.display = "none";
-                
-                console.log("LIFF 初始化成功");
-            } catch (err) {
-                console.warn("LIFF 初始化失敗，錯誤訊息:", err);
-                getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
-            }
-        }
-        
-        async function dataSearch(lineID) {
-            var data = {
-                lineId: lineID,
-                search: "true",
-            };
-            try {
-                let response = await fetch(`${cloudflareUrl}`, {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: { "Content-Type": "application/json" }
-                });
-                console.log(response);
-                let data1 = JSON.parse(await response.text());
-                console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
-                
-                if (!data1 || !data1.message || !Array.isArray(data1.message)) {
-                    console.error("錯誤: 時段資料格式錯誤或不存在");
-                    return;
-                }
-                if (data1.isMember == false){
-                    document.getElementById("name").value = "";
-                    document.getElementById("phone").value = "";
-                    document.getElementById("name").readOnly = "false";
-                    document.getElementById("phone").readOnly = "false";
-                }
-                else{
-                    document.getElementById("name").value = data1.name;
-                    document.getElementById("phone").value = data1.phone;
-                    document.getElementById("name").readOnly = "true";
-                    document.getElementById("phone").readOnly = "true";
-                }
-                let select = document.getElementById("timeslot");
-                select.innerHTML = ""; // 清空舊選項
-                
-                // 🔹 動態加入可預約時段
-                data1.message.forEach(timeSlot => {
-                    let option = document.createElement("option");
-                    option.value = timeSlot;
-                    option.textContent = timeSlot;
-                    select.appendChild(option);
-                });
-                
-            } catch (error) {
-                console.error("取得時段失敗", error);
-            }
-            
-        }
-        async function getLineIdFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const lineId = urlParams.get("lineId");
-            
-            if (lineId) {
-                document.getElementById("lineId").value = lineId;
-                await dataSearch(lineId);
-                // 顯示畫面
-                document.getElementById("content").style.display = "block";
-                document.getElementById("errorMessage").style.display = "none";
-                document.getElementById("reloadPage").style.display = "none";
-            } else {
-                // 顯示錯誤訊息
-                document.getElementById("content").style.display = "none";
-                document.getElementById("errorMessage").style.display = "block";
-                document.getElementById("reloadPage").style.display = "block";
-            }
-        }
-        
-        function reloadPage() {
-            location.reload();
-        }
-        function toggleItem(){
-            var nailNumField = document.getElementById("nailNumField");
-            var item = document.getElementById("item").value;
-            
-            if(item === "上睫毛" || item === "上下睫毛"){
-                nailNumField.style.display = "none";
-                document.getElementById("nailNum").value = "0";
-            }
-            else{
-                nailNumField.style.display = "block";
-            }
-        }
-        // 初始化 LIFF 或從 URL 讀取 lineId
-        // window.onload = async () => {
-        //     await initLIFF();
-        // };
-        document.addEventListener("DOMContentLoaded", async function () {
-            await initLIFF();
-            $('.loader-inner').loaders();
+            return { nailNum: parseInt(nailNumValue, 10) };
+          },
         });
-        
-    </script>
-</body>
-</html>
+        if (!confirmresult.isConfirmed) {
+          return;
+        } else {
+          // data.nailNum = confirmresult.value.nailNum;
+          try {
+            let response = await fetch(`${cloudflareUrl}`, {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: { "Content-Type": "application/json" },
+            });
+            if (response.ok) {
+              let result = JSON.parse(await response.text()); // 解析返回的 JSON
+              console.log(result); // 處理結果
+              if (result.isSuc === false) {
+                let confirm_appointFai = await Swal.fire({
+                  title: "預約失敗",
+                  text: `${result.retFaiReason}`,
+                  icon: "error",
+                  confirmButtonText: "OK",
+                });
+              } else {
+                let confirm_appointSuc = await Swal.fire({
+                  title: "預約成功",
+                  html: `
+                                    <p><strong>姓名:</strong> ${
+                                      result.retName
+                                    }</p>
+                                    <p><strong>電話:</strong> ${
+                                      result.retPhone
+                                    }</p>
+                                    <p><strong>時段:</strong> ${
+                                      result.retTimeSlot
+                                    }</p>
+                                    <p><strong>項目:</strong> ${
+                                      result.retItem
+                                    }</p>
+                                    ${
+                                      result.retItem === "上睫毛" ||
+                                      result.retItem === "上下睫毛"
+                                        ? ""
+                                        : `<p><strong>需延甲幾指:</strong> ${result.retNailNum}</p>`
+                                    }
+                                    <p><strong>備註:</strong> ${
+                                      result.retRemarks
+                                    }</p>
+                                `,
+                  icon: "success",
+                  confirmButtonText: "OK",
+                });
+                if (confirm_appointSuc) window.close();
+              }
+            } else {
+              console.error("預約失敗:", response.statusText);
+              let confirm_Fai = await Swal.fire({
+                title: "出了一點問題",
+                text: `${response.statusText}`,
+                icon: "error",
+                confirmButtonText: "重試",
+                cancelButtonText: "取消",
+              });
+              if (confirm_Fai) {
+                sendSubmit();
+              } else {
+                return;
+              }
+            }
+          } catch (error) {
+            console.error("錯誤:", error);
+            alert("發生錯誤，請檢查網路或稍後再試！");
+          }
+        }
 
+        // alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
+        // alert(`${data.lineId} 資料已儲存！`);
+      }
+
+      async function initLIFF() {
+        try {
+          const res = await fetch(`${cloudflareUrl}liff-id`);
+          const data = JSON.parse(await res.text());
+          if (!data.LIFF_ID) {
+            throw new Error("沒有設定 LIFF ID，將嘗試從 URL 讀取 lineId...");
+          }
+
+          await liff.init({
+            liffId: data.LIFF_ID,
+            withLoginOnExternalBrowser: true,
+          });
+
+          if (!liff.isLoggedIn()) {
+            liff.login();
+            return;
+          }
+
+          const profile = await liff.getProfile();
+          sessionStorage.setItem("lineId", profile.userId);
+          // document.getElementById("lineId").value = profile.userId;
+          await dataSearch(profile.userId);
+
+          // 顯示畫面
+          document.getElementById("content").style.display = "block";
+          document.getElementById("errorMessage").style.display = "none";
+          document.getElementById("reloadPage").style.display = "none";
+
+          console.log("LIFF 初始化成功");
+        } catch (err) {
+          console.warn("LIFF 初始化失敗，錯誤訊息:", err);
+          getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
+        }
+      }
+
+      async function dataSearch(lineID) {
+        var data = {
+          lineId: lineID,
+          search: "true",
+        };
+        try {
+          let response = await fetch(`${cloudflareUrl}`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" },
+          });
+          console.log(response);
+          let data1 = JSON.parse(await response.text());
+          console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
+
+          if (!data1 || !data1.message || !Array.isArray(data1.message)) {
+            console.error("錯誤: 時段資料格式錯誤或不存在");
+            return;
+          }
+          if (data1.isMember == false) {
+            document.getElementById("name").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("name").readOnly = "false";
+            document.getElementById("phone").readOnly = "false";
+          } else {
+            document.getElementById("name").value = data1.name;
+            document.getElementById("phone").value = data1.phone;
+            document.getElementById("name").readOnly = "true";
+            document.getElementById("phone").readOnly = "true";
+          }
+          let select = document.getElementById("timeslot");
+          select.innerHTML = ""; // 清空舊選項
+
+          // 🔹 動態加入可預約時段
+          data1.message.forEach((timeSlot) => {
+            let option = document.createElement("option");
+            option.value = timeSlot;
+            option.textContent = timeSlot;
+            select.appendChild(option);
+          });
+        } catch (error) {
+          console.error("取得時段失敗", error);
+        }
+      }
+      async function getLineIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const lineId = urlParams.get("lineId");
+
+        if (lineId) {
+          document.getElementById("lineId").value = lineId;
+          await dataSearch(lineId);
+          // 顯示畫面
+          document.getElementById("content").style.display = "block";
+          document.getElementById("errorMessage").style.display = "none";
+          document.getElementById("reloadPage").style.display = "none";
+        } else {
+          // 顯示錯誤訊息
+          document.getElementById("content").style.display = "none";
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("reloadPage").style.display = "block";
+        }
+      }
+
+      function reloadPage() {
+        location.reload();
+      }
+      function toggleItem() {
+        var nailNumField = document.getElementById("nailNumField");
+        var item = document.getElementById("item").value;
+
+        if (item === "上睫毛" || item === "上下睫毛") {
+          nailNumField.style.display = "none";
+          document.getElementById("nailNum").value = "0";
+        } else {
+          nailNumField.style.display = "block";
+        }
+      }
+      // 初始化 LIFF 或從 URL 讀取 lineId
+      // window.onload = async () => {
+      //     await initLIFF();
+      // };
+      document.addEventListener("DOMContentLoaded", async function () {
+        await initLIFF();
+        $(".loader-inner").loaders();
+      });
+    </script>
+  </body>
+</html>
