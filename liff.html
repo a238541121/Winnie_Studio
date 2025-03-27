@@ -17,6 +17,7 @@
             background-position: center;
             font-family: Arial, sans-serif;
         }
+        .errContainer
         .container {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
@@ -107,15 +108,16 @@
                 <textarea class="form-control" id="remarks" required></textarea>
             </div>
             <button type="button" class="btn btn-primary w-100" onclick="sendSubmit()">送出預約</button>
-            <div class="errorMessage" id="errorMessage">
-                <p>請重新開啟！</p>
-            </div>
-            <div class="reloadpage">
-                <button id="reloadPage" class="button btn-primary" onclick="reloadPage()">重新載入</button>
-            </div>
         </form>
     </div>
-    
+    <div class="errContainer" id="errContainer">
+        <div class="errorMessage" id="errorMessage">
+            <p>請重新開啟！</p>
+        </div>
+        <div class="reloadpage">
+            <button id="reloadPage" class="button btn-primary" onclick="reloadPage()">重新載入</button>
+        </div>
+    </div>
     <script>
         let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
         // 取得並顯示 lineId
@@ -260,8 +262,7 @@ async function initLIFF() {
         
         // 顯示畫面
         document.getElementById("content").style.display = "none";
-        document.getElementById("errorMessage").style.display = "block";
-        document.getElementById("reloadPage").style.display = "block";
+        document.getElementById("errContainer").style.display = "block";
         
         console.log("LIFF 初始化成功");
     } catch (err) {
@@ -325,13 +326,11 @@ async function getLineIdFromURL() {
         await dataSearch(lineId);
         // 顯示畫面
         document.getElementById("content").style.display = "block";
-        document.getElementById("errorMessage").style.display = "none";
-        document.getElementById("reloadPage").style.display = "none";
+        document.getElementById("errContainer").style.display = "none";
     } else {
         // 顯示錯誤訊息
         document.getElementById("content").style.display = "none";
-        document.getElementById("errorMessage").style.display = "block";
-        document.getElementById("reloadPage").style.display = "block";
+        document.getElementById("errContainer").style.display = "block";
     }
 }
 
