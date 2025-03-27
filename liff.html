@@ -111,10 +111,9 @@
                         body: JSON.stringify(data),
                         headers: { "Content-Type": "application/json" }
                     });
-                    
+                    let text = await response.text();
                     if (response.ok) {
-                        console.log(response);
-                        let result = JSON.parse(await response.text());  // 解析返回的 JSON
+                        let result = JSON.parse(text);  // 解析返回的 JSON
                         console.log(result.status, result.message);  // 處理結果
                         if(result.status === false){
                             let confirm_appointFai = await Swal.fire({
