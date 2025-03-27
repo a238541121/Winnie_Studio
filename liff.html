@@ -136,6 +136,7 @@
                                 icon: "success",
                                 confirmButtonText: "OK",
                             });
+                            if(confirm_appointSuc) window.close();
                         }
                         
                     }
@@ -146,9 +147,13 @@
                             text: `${response.statusText}`,
                             icon: "error",
                             confirmButtonText: "重試",
+                            cancelButtonText: "取消",
                         });
                         if (confirm_Fai) {
                             sendSubmit();
+                        }
+                        else{
+                            return;
                         }
                     }
                 } catch (error) {
