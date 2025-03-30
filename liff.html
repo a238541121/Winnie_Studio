@@ -190,7 +190,7 @@
                 preConfirm: () => {
                     let nailNumValue = document.getElementById("nailNum")?.value || "0";
                     if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || document.getElementById("nailNum")?.value == "") {
-                        Swal.showValidationMessage("[延甲幾指]請輸入 0-20 之間的數字，不需請輸入'0'。");
+                        Swal.showValidationMessage("[需延甲幾指]請輸入 0 ～ 20 之間的數字，若不需要請輸入‘ 0 ’。");
                         return false;
                     }
                     return { nailNum: parseInt(nailNumValue, 10) };
