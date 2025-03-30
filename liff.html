@@ -31,7 +31,7 @@
         }
         .container {
             background: rgba(249, 214, 174, 0.195);
-            padding: 80px;
+            padding: 70px;
             border-radius: 10px;
             margin-top: 50px;
         }
@@ -200,7 +200,7 @@
                 return;
             } 
             else {
-                document.getElementById("container").style.filter = blur(8);
+                document.getElementById("container").style.filter = "blur(5px)";
                 document.getElementById("loader").style.display = "block";
                 try {
                     let response = await fetch(`${cloudflareUrl}`, {
@@ -209,7 +209,7 @@
                         headers: { "Content-Type": "application/json" },
                     });
                     if (response.ok) {
-                        document.getElementById("container").style.filter = blur(0);
+                        document.getElementById("container").style.filter = "blur(0px)";
                         document.getElementById("loader").style.display = "none";
                         let result = JSON.parse(await response.text()); // 解析返回的 JSON
                         console.log(result); // 處理結果
@@ -252,7 +252,7 @@
         if (confirm_appointSuc) window.close();
     }
 } else {
-    document.getElementById("container").style.filter = blur(0);
+    document.getElementById("container").style.filter = "blur(0px)";
     document.getElementById("loader").style.display = "none";
     console.error("預約失敗:", response.statusText);
     let confirm_Fai = await Swal.fire({
@@ -269,7 +269,7 @@
     }
 }
 } catch (error) {
-    document.getElementById("container").style.filter = blur(0);
+    document.getElementById("container").style.filter = "blur(0px)";
     document.getElementById("loader").style.display = "none";
     console.error("錯誤:", error);
     alert("發生錯誤，請檢查網路或稍後再試！");
