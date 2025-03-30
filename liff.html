@@ -166,7 +166,7 @@
                 nailNum:
                 document.getElementById("nailNum").value !== ""
                 ? Number(document.getElementById("nailNum").value)
-                : null,
+                : document.getElementById("nailNum").value,
                 remarks: document.getElementById("remarks").value.trim() || "",
             };
             let confirmresult = await Swal.fire({
@@ -189,7 +189,7 @@
                 cancelButtonText: "取消",
                 preConfirm: () => {
                     let nailNumValue = document.getElementById("nailNum")?.value || "0";
-                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || data.nailNum == null) {
+                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20) {
                         Swal.showValidationMessage("請輸入 0-20 之間的數字");
                         return false;
                     }
