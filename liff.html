@@ -189,7 +189,7 @@
                 cancelButtonText: "取消",
                 preConfirm: () => {
                     let nailNumValue = document.getElementById("nailNum")?.value || "0";
-                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || document.getElementById("nailNum")?.value == null) {
+                    if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || data.nailNum == null) {
                         Swal.showValidationMessage("請輸入 0-20 之間的數字");
                         return false;
                     }
