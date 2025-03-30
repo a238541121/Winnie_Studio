@@ -39,8 +39,8 @@
             border: 16px solid #f3f3f3;
             border-radius: 50%;
             border-top: 16px solid #3493db;
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             position: absolute;
             top: 0;
             right: 0;
@@ -200,7 +200,7 @@
                 return;
             } 
             else {
-                document.getElementById("container").style.filter = "blur(5px)";
+                document.getElementById("container").style.filter = "blur(10px)";
                 document.getElementById("loader").style.display = "block";
                 try {
                     let response = await fetch(`${cloudflareUrl}`, {
