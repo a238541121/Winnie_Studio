@@ -355,6 +355,7 @@ async function dataSearch(lineID) {
         document.getElementById("container").style.display = "block";
         document.getElementById("errContainer").style.display = "none";
         document.getElementById("loader").style.display = "none";
+        notice();
     } catch (error) {
         console.error("取得時段失敗", error);
     }
@@ -379,16 +380,7 @@ async function getLineIdFromURL() {
 function reloadPage() {
     location.reload();
 }
-async function toggleItem() {
-    var nailNumField = document.getElementById("nailNumField");
-    var item = document.getElementById("item").value;
-    
-    if (item === "上睫毛" || item === "上下睫毛") {
-        nailNumField.style.display = "none";
-        document.getElementById("nailNum").value = "0";
-    } else {
-        nailNumField.style.display = "block";
-    }
+async function notice() {
     let confirmresult = await Swal.fire({
         title: `${(item === "上睫毛" || item === "上下睫毛") ? "睫毛管理需知" : "美甲需知"}`,
         html: `${(item === "上睫毛" || item === "上下睫毛") ? `
@@ -409,6 +401,18 @@ async function toggleItem() {
         icon: "info",
         confirmButtonText: "確認",
     });
+}
+function toggleItem() {
+    var nailNumField = document.getElementById("nailNumField");
+    var item = document.getElementById("item").value;
+    
+    if (item === "上睫毛" || item === "上下睫毛") {
+        nailNumField.style.display = "none";
+        document.getElementById("nailNum").value = "0";
+    } else {
+        nailNumField.style.display = "block";
+    }
+    notice();
 }
 // 初始化 LIFF 或從 URL 讀取 lineId
 //   window.onload = async () => {
