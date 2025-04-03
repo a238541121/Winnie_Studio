@@ -382,8 +382,8 @@ function reloadPage() {
 }
 async function notice() {
     let confirmresult = await Swal.fire({
-        title: `${(item == "上睫毛" || item == "上下睫毛") ? "睫毛管理需知" : "美甲需知"}`,
-        html: `${(item == "上睫毛" || item == "上下睫毛") ? `
+        title: `${item == "上睫毛" || item == "上下睫毛" ? "睫毛管理需知" : "美甲需知"}`,
+        html: `${item == "上睫毛" || item == "上下睫毛" ? `
         <p><strong> •100%自身睫毛施作捲翹睫毛的一種技術，非嫁接睫毛。</strong></p>
         <p><strong> •一年內曾做眼部手術 (如雷射、雙眼皮) 者不可操作。</strong></p>
         <p><strong> •孕婦與哺乳者無法進行睫毛管理。</strong></p>
