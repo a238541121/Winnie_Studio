@@ -382,8 +382,8 @@ function reloadPage() {
 }
 async function notice() {
     let confirmresult = await Swal.fire({
-        title: `${(item === "上睫毛" || item === "上下睫毛") ? "睫毛管理需知" : "美甲需知"}`,
-        html: `${(item === "上睫毛" || item === "上下睫毛") ? `
+        title: `${(item == "上睫毛" || item == "上下睫毛") ? "睫毛管理需知" : "美甲需知"}`,
+        html: `${(item == "上睫毛" || item == "上下睫毛") ? `
         <p><strong> •100%自身睫毛施作捲翹睫毛的一種技術，非嫁接睫毛。</strong></p>
         <p><strong> •一年內曾做眼部手術 (如雷射、雙眼皮) 者不可操作。</strong></p>
         <p><strong> •孕婦與哺乳者無法進行睫毛管理。</strong></p>
@@ -395,7 +395,6 @@ async function notice() {
         ` :`
         <p><strong> •美甲約 3 - 3.5 小時，請預留時間。</strong></p>
         <p><strong> •預約請保持禮貌，避免文字誤解。</strong></p>
-        <p><strong> •「延甲」或「複雜款式」請提前告知。</strong></p>
         <p><strong> •採預約制，嚴禁放鳥、遲到 15 分鐘將視當天預約情況調整服務內容 (例：造型改單色或簡易造型)。</strong></p>
         `}`,
         icon: "info",
