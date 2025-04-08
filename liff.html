@@ -415,6 +415,8 @@ function toggleItem() {
 }
 function UpdateItemOptions(remark) {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
+    console.log(timeslotSelIndex);
+    console.log(remark);
     const words = remark.split(",");
     let item = document.getElementById("item");
     if(words[timeslotSelIndex] != ""){
