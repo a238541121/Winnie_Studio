@@ -193,12 +193,12 @@
                         num += 1;
                     }
                     // return { nailNum: parseInt(nailNumValue, 10) };
-                    if(isNaN(timeslotValue) || timeslotValue == ""){
-                        mes += `${mes == "" ? '':'\r\n'}${num}.[時段]請選擇想預約時段`;
+                    if(timeslotValue == ""){
+                        mes += `${mes == "" ? '':'/r/n'}${num}.[時段]請選擇想預約時段`;
                         num += 1;
                     }
-                    if(isNaN(itemValue) || itemValue == ""){
-                        mes += `${mes == "" ? '':'\r\n'}${num}.[項目]請選擇想做項目`;
+                    if(itemValue == ""){
+                        mes += `${mes == "" ? '':'/r/n'}${num}.[項目]請選擇想做項目`;
                         num += 1;
                     }
                     if(mes != ""){
