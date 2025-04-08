@@ -156,8 +156,8 @@
                 lineId: sessionStorage.getItem("lineId"),
                 name: document.getElementById("name").value.trim() || null,
                 phone: document.getElementById("phone").value.trim() || null,
-                timeslot: document.getElementById("timeslot").value || null,
-                item: document.getElementById("item").value || null,
+                timeslot: document.getElementById("timeslot").value || "",
+                item: document.getElementById("item").value || "",
                 nailNum:
                 document.getElementById("nailNum").value !== ""
                 ? Number(document.getElementById("nailNum").value)
@@ -189,20 +189,22 @@
                     let timeslotValue = document.getElementById("timeslot").value;
                     let itemValue = document.getElementById("item").value;
                     if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || document.getElementById("nailNum")?.value == "") {
+                        Swal.showValidationMessage("[需延甲幾指]請輸入 0 ～ 20 之間的數字，若不需要請輸入‘ 0 ’。");
                         mes += `${num}.[需延甲幾指]請輸入 0 ～ 20 之間的數字，若不需要請輸入‘ 0 ’。`;
                         num += 1;
                     }
                     // return { nailNum: parseInt(nailNumValue, 10) };
                     if(timeslotValue == ""){
+                        Swal.showValidationMessage("[時段]請選擇想預約時段");
                         mes += `${mes == "" ? '':'\r'}${num}.[時段]請選擇想預約時段`;
                         num += 1;
                     }
                     if(itemValue == ""){
+                        Swal.showValidationMessage("[項目]請選擇想做項目");
                         mes += `${mes == "" ? '':'\r'}${num}.[項目]請選擇想做項目`;
                         num += 1;
                     }
                     if(mes != ""){
-                        Swal.showValidationMessage(mes);
                         return false;
                     }
                 },
