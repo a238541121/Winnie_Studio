@@ -117,7 +117,7 @@
             </div>
             <div class="mb-3">
                 <label for="timeslot" class="form-label">時段</label>
-                <select class="form-select" id="timeslot">
+                <select class="form-select" id="timeslot" onchange="UpdateItemOptions()">
                     <option value="">請選擇時段</option>
                 </select>
             </div>
@@ -155,7 +155,6 @@
     </div>
     <script>
         let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
-        // 取得並顯示 lineId
         async function sendSubmit() {
             var data = {
                 lineId: sessionStorage.getItem("lineId"),
@@ -214,6 +213,7 @@
                         let result = JSON.parse(await response.text()); // 解析返回的 JSON
                         console.log(result); // 處理結果
                         if (result.isSuc === false) {
+                            await dataSearch(sessionStorage.getItem("lineId"));
                             let confirm_appointFai = await Swal.fire({
                                 title: "預約失敗",
                                 text: `${result.retFaiReason}`,
@@ -365,7 +365,7 @@ async function getLineIdFromURL() {
     const lineId = urlParams.get("lineId");
     
     if (lineId) {
-        document.getElementById("lineId").value = lineId;
+        // document.getElementById("lineId").value = lineId;
         await dataSearch(lineId);
         // 顯示畫面
         // document.getElementById("container").style.display = "block";
@@ -412,6 +412,21 @@ function toggleItem() {
         nailNumField.style.display = "block";
     }
     notice(item);
+}
+function UpdateItemOptions(remark) {
+    var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
+    const words = remark.split(",");
+    let item = document.getElementById("item");
+    if(words[timeslotSelIndex] != ""){
+        item.innerHTML = ""; // 清空舊選項
+        var words_spl = words[timeslotSelIndex].split("或");
+        words_spl.forEach((item) => {
+            let option = document.createElement("option");
+            option.value = item;
+            option.textContent = item;
+            select.appendChild(option);
+        });
+    }        
 }
 // 初始化 LIFF 或從 URL 讀取 lineId
 //   window.onload = async () => {
