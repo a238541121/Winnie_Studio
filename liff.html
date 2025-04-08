@@ -430,7 +430,6 @@ async function UpdateItemOptions() {
         var remark_spl = remark[timeslotSelIndex].split("或");
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
-            option.selected = "disbale"
             option.value = item;
             option.textContent = item;
             selectitem.appendChild(option);
