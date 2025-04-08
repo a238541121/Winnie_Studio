@@ -427,7 +427,7 @@ async function UpdateItemOptions() {
         defaultOption.disabled = true;
         defaultOption.selected = true;
         selectitem.appendChild(defaultOption);
-    if(remark[timeslotSelIndex] != ""){
+    if(remark[timeslotSelIndex-1] != ""){
         var remark_spl = remark[timeslotSelIndex].split("或");
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
@@ -436,15 +436,15 @@ async function UpdateItemOptions() {
             selectitem.appendChild(option);
         });
     } 
-    // else{
-    //     var itemD = ["手足","手","足","上睫毛","上下睫毛"];
-    //     itemD.forEach(Detail => {
-    //         let option = document.createElement("option");
-    //         option.value = Detail;
-    //         option.textContent = Detail;
-    //         selectitem.appendChild(option);
-    //     });     
-    // }       
+    else{
+        var itemD = ["手足","手","足","上睫毛","上下睫毛"];
+        itemD.forEach(Detail => {
+            let option = document.createElement("option");
+            option.value = Detail;
+            option.textContent = Detail;
+            selectitem.appendChild(option);
+        });     
+    }       
 }
 // 初始化 LIFF 或從 URL 讀取 lineId
 //   window.onload = async () => {
