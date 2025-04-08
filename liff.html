@@ -343,6 +343,7 @@ async function dataSearch(lineID) {
         defaultOption.textContent = "請選擇時段";
         defaultOption.disabled = true;
         defaultOption.selected = true;
+        select.appendChild(defaultOption);
         // 🔹 動態加入可預約時段
         data1.message.forEach((timeSlot) => {
             let option = document.createElement("option");
@@ -426,6 +427,7 @@ async function UpdateItemOptions() {
         defaultOption.textContent = "請選擇項目";
         defaultOption.disabled = true;
         defaultOption.selected = true;
+        selectitem.appendChild(defaultOption);
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.selected = "disbale"
