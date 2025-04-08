@@ -413,11 +413,24 @@ function toggleItem() {
     }
     notice(item);
 }
-function UpdateItemOptions(remark) {
+async function UpdateItemOptions() {
+    let response = await fetch(`${cloudflareUrl}`, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+    });
+    console.log(response);
+    let data1 = JSON.parse(await response.text());
+    console.log("取得的資料:", data1.remark); // 🔹 確保資料正確回傳
+        
+    if (!data1 || !data1.remark || !Array.isArray(data1.remark)) {
+        console.error("錯誤: remark");
+        return;
+    }
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
     console.log(timeslotSelIndex);
-    console.log(remark);
-    const words = remark.split(",");
+    console.log(data1.remark);
+    const words = data1.remark.split(",");
     let item = document.getElementById("item");
     if(words[timeslotSelIndex] != ""){
         item.innerHTML = ""; // 清空舊選項
