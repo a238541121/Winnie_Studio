@@ -350,7 +350,7 @@ async function dataSearch(lineID) {
             option.textContent = timeSlot;
             select.appendChild(option);
         });
-        
+        sessionStorage.setItem("data1.remark",data1.remark);
         // 顯示畫面
         document.getElementById("container").style.display = "block";
         document.getElementById("errContainer").style.display = "none";
@@ -414,35 +414,18 @@ function toggleItem() {
     notice(item);
 }
 async function UpdateItemOptions() {
-    var data = {
-        lineId: sessionStorage.getItem("lineId"),
-        search: "true",
-    };
-    let response = await fetch(`${cloudflareUrl}`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-    });
-    console.log(response);
-    let data1 = JSON.parse(await response.text());
-    console.log("取得的資料:", data1.remark); // 🔹 確保資料正確回傳
-        
-    if (!data1 || !data1.remark || !Array.isArray(data1.remark)) {
-        console.error("錯誤: remark");
-        return;
-    }
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
     console.log(timeslotSelIndex);
-    console.log(data1.remark);
-    let item = document.getElementById("item");
-    if(data1.remark[timeslotSelIndex] != ""){
+    var remark = sessionStorage.getItem("data1.remark").split(",");
+    let selectitem = document.getElementById("item");
+    if(remark[timeslotSelIndex] != ""){
         item.innerHTML = ""; // 清空舊選項
-        var data1remark_spl = data1.remark[timeslotSelIndex].split("或");
-        data1remark_spl.forEach((item) => {
+        var remark_spl = remark[timeslotSelIndex].split("或");
+        remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.value = item;
             option.textContent = item;
-            select.appendChild(option);
+            selectitem.appendChild(option);
         });
     }        
 }
