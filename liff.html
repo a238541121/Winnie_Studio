@@ -183,12 +183,28 @@
                 confirmButtonText: "送出",
                 cancelButtonText: "取消",
                 preConfirm: () => {
+                    var num = 1;
+                    var mes = "";
                     let nailNumValue = document.getElementById("nailNum")?.value || "0";
+                    let timeslotValue = document.getElementById("timeslot").value;
+                    let itemValue = document.getElementById("item").value;
                     if (isNaN(nailNumValue) || nailNumValue < 0 || nailNumValue > 20 || document.getElementById("nailNum")?.value == "") {
-                        Swal.showValidationMessage("[需延甲幾指]請輸入 0 ～ 20 之間的數字，若不需要請輸入‘ 0 ’。");
+                        mes += `${num}.[需延甲幾指]請輸入 0 ～ 20 之間的數字，若不需要請輸入‘ 0 ’。`;
+                        num += 1;
+                    }
+                    // return { nailNum: parseInt(nailNumValue, 10) };
+                    if(isNaN(nailNumValue)){
+                        mes += `${mes == "" ? '':'\n'}${num}.[時段]請選擇想預約時段`;
+                        num += 1;
+                    }
+                    if(isNaN(timeslotValue)){
+                        mes += `${mes == "" ? '':'\n'}${num}.[項目]請選擇想做項目`;
+                        num += 1;
+                    }
+                    if(mes != ""){
+                        Swal.showValidationMessage(mes);
                         return false;
                     }
-                    return { nailNum: parseInt(nailNumValue, 10) };
                 },
             });
             if (!confirmresult.isConfirmed) {
