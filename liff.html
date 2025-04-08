@@ -338,7 +338,11 @@ async function dataSearch(lineID) {
         }
         let select = document.getElementById("timeslot");
         select.innerHTML = ""; // 清空舊選項
-        
+        var defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "請選擇時段";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
         // 🔹 動態加入可預約時段
         data1.message.forEach((timeSlot) => {
             let option = document.createElement("option");
@@ -417,8 +421,14 @@ async function UpdateItemOptions() {
     item.innerHTML = ""; // 清空舊選項
     if(remark[timeslotSelIndex] != ""){
         var remark_spl = remark[timeslotSelIndex].split("或");
+        var defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "請選擇項目";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
+            option.selected = "disbale"
             option.value = item;
             option.textContent = item;
             selectitem.appendChild(option);
