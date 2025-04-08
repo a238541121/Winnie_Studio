@@ -434,12 +434,11 @@ async function UpdateItemOptions() {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
     console.log(timeslotSelIndex);
     console.log(data1.remark);
-    const words = data1.remark.split(",");
     let item = document.getElementById("item");
-    if(words[timeslotSelIndex] != ""){
+    if(data1.remark[timeslotSelIndex] != ""){
         item.innerHTML = ""; // 清空舊選項
-        var words_spl = words[timeslotSelIndex].split("或");
-        words_spl.forEach((item) => {
+        var data1remark_spl = data1.remark[timeslotSelIndex].split("或");
+        data1remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.value = item;
             option.textContent = item;
