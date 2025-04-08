@@ -420,14 +420,14 @@ async function UpdateItemOptions() {
     var remark = sessionStorage.getItem("data1.remark").split(",");
     let selectitem = document.getElementById("item");
     item.innerHTML = ""; // 清空舊選項
-    if(remark[timeslotSelIndex] != ""){
-        var remark_spl = remark[timeslotSelIndex].split("或");
-        var defaultOption = document.createElement("option");
+    var defaultOption = document.createElement("option");
         defaultOption.value = "";
         defaultOption.textContent = "請選擇項目";
         defaultOption.disabled = true;
         defaultOption.selected = true;
         selectitem.appendChild(defaultOption);
+    if(remark[timeslotSelIndex] != ""){
+        var remark_spl = remark[timeslotSelIndex].split("或");
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.selected = "disbale"
