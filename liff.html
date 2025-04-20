@@ -374,7 +374,7 @@ async function dataSearch(lineID) {
         document.getElementById("container").style.display = "block";
         document.getElementById("errContainer").style.display = "none";
         document.getElementById("loader").style.display = "none";
-        notice();
+        // notice();
     } catch (error) {
         console.error("取得時段失敗", error);
     }
@@ -430,7 +430,9 @@ function toggleItem() {
     } else {
         nailNumField.style.display = "block";
     }
-    notice(item);
+    if(item === "上睫毛" || item === "上下睫毛" || item === "手足" || item === "手" || item === "足"){
+        notice(item);
+    }
 }
 async function UpdateItemOptions() {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
