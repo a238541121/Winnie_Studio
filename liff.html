@@ -174,9 +174,9 @@
                     <p><strong>時段:</strong> ${data.timeslot}</p>
                     <p><strong>項目:</strong> ${data.item}</p>
                     ${
-                data.item === "上睫毛" || data.item === "上下睫毛"
-                ? ""
-                : `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>`
+                data.item === "手足" || data.item === "手" || data.item === "足"
+                ? `<p><strong>需延甲幾指:</strong> ${data.nailNum}</p>`
+                : ""
                 }
                     <p><strong>備註:</strong> ${data.remarks}</p>
                 `,
@@ -251,10 +251,11 @@
                     result.retItem
                 }</p>
                                     ${
-                result.retItem === "上睫毛" ||
-                result.retItem === "上下睫毛"
-                ? ""
-                : `<p><strong>需延甲幾指:</strong> ${result.retNailNum}</p>`
+                result.retItem === "手足" ||
+                result.retItem === "手" ||
+                result.retItem === "足"
+                ? `<p><strong>需延甲幾指:</strong> ${result.retNailNum}</p>`
+                : ""
                 }
                                     <p><strong>備註:</strong> ${
                 result.retRemarks
@@ -424,11 +425,11 @@ function toggleItem() {
     var nailNumField = document.getElementById("nailNumField");
     var item = document.getElementById("item").value;
     
-    if (item === "上睫毛" || item === "上下睫毛") {
+    if (item === "手足" || item === "手" || item === "足") {
+        nailNumField.style.display = "block";
+    } else {
         nailNumField.style.display = "none";
         document.getElementById("nailNum").value = "0";
-    } else {
-        nailNumField.style.display = "block";
     }
     if(item === "上睫毛" || item === "上下睫毛" || item === "手足" || item === "手" || item === "足"){
         notice(item);
