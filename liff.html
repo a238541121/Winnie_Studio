@@ -347,13 +347,13 @@ async function dataSearch(lineID) {
         if (data1.isMember == false) {
             document.getElementById("name").value = "";
             document.getElementById("phone").value = "";
-            document.getElementById("name").readOnly = "true";
-            document.getElementById("phone").readOnly = "true";
+            document.getElementById("name").readOnly = false;
+            document.getElementById("phone").readOnly = false;
         } else {
             document.getElementById("name").value = data1.name;
             document.getElementById("phone").value = data1.phone;
-            document.getElementById("name").readOnly = "false";
-            document.getElementById("phone").readOnly = "false";
+            document.getElementById("name").readOnly = true;
+            document.getElementById("phone").readOnly = true;
         }
         let select = document.getElementById("timeslot");
         select.innerHTML = ""; // 清空舊選項
