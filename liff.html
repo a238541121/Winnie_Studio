@@ -270,7 +270,7 @@
             .sendMessages([
             {
                 type: "text",
-                text: `預約成功！\r姓名：${result.retName}\r電話：${result.retPhone}\r時間：${result.retTimeSlot}\r項目：${result.retItem}${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `\r需延甲幾指：${result.retNailNum}` : ""}\r備註：${result.retRemarks}`,
+                text: `預約成功！\r姓名：${result.retName}\r電話：${result.retPhone}\r時間：${result.retTimeSlot}\r項目：${result.retItem}${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `\r需延甲幾指：${result.retNailNum}` : ""}${result.retRemarks == "" ? "" : `\r備註：${result.retRemarks}`}`,
             },
             ])
             .then(() => {
