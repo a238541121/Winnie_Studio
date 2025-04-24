@@ -152,6 +152,7 @@
         <button id="reloadPage" class="btn-reloadPage" onclick="reloadPage()">重新載入</button>
     </div>
     <script>
+        let liff;
         let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
         async function sendSubmit() {
             var data = {
@@ -310,7 +311,6 @@
 // alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
 // alert(`${data.lineId} 資料已儲存！`);
 }
-let liff;
 async function initLIFF() {
     try {
         const res = await fetch(`${cloudflareUrl}liff-id`);
