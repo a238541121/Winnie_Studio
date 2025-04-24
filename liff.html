@@ -377,7 +377,7 @@
                             }
                             ]
                         }
-                        `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `,
+                        ,
                         {
                             "type": "box",
                             "layout": "horizontal",
@@ -390,13 +390,34 @@
                             },
                             {
                                 "type": "text",
-                                "text": ${result.retNailNum},
+                                "text": `${result.retNailNum}`,
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
                             }
                             ]
-                        }` : ""}`,
+                        }
+                        // `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? ,
+                        // {
+                        //     "type": "box",
+                        //     "layout": "horizontal",
+                        //     "contents": [
+                        //     {
+                        //         "type": "text",
+                        //         "text": "需延甲幾指",
+                        //         "size": "sm",
+                        //         "color": "#555555"
+                        //     },
+                        //     {
+                        //         "type": "text",
+                        //         "text": ${result.retNailNum},
+                        //         "size": "sm",
+                        //         "color": "#111111",
+                        //         "align": "end"
+                        //     }
+                        //     ]
+                        // } : ""}`
+                        ,
                         {
                             "type": "separator",
                             "margin": "xxl"
@@ -437,7 +458,7 @@
                         "separator": true
                     }
                 }
-            }
+            },
             ])
             .then(() => {
                 console.log("message sent");
