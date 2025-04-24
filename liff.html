@@ -267,11 +267,177 @@
         });
         if (confirm_appointSuc) {
             liff
-            .sendMessages([
-            {
-                type: "text",
-                text: `預約成功！\r姓名：${result.retName}\r電話：${result.retPhone}\r時間：${result.retTimeSlot}\r項目：${result.retItem}${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `\r需延甲幾指：${result.retNailNum}` : ""}${result.retRemarks == "" ? "" : `\r備註：${result.retRemarks}`}`,
-            },
+            .sendMessages([{
+                "type": "bubble",
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                    {
+                        "type": "text",
+                        "text": "nails._winnie MESSAGE",
+                        "weight": "bold",
+                        "color": "#1DB446",
+                        "size": "sm"
+                    },
+                    {
+                        "type": "text",
+                        "text": "預約成功",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "margin": "md",
+                        "align": "center"
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xxl"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "margin": "xxl",
+                        "spacing": "sm",
+                        "contents": [
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "姓名",
+                                "size": "sm",
+                                "color": "#555555",
+                                "flex": 0
+                            },
+                            {
+                                "type": "text",
+                                "text": `${result.retName}`,
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "電話",
+                                "size": "sm",
+                                "color": "#555555",
+                                "flex": 0
+                            },
+                            {
+                                "type": "text",
+                                "text": `${result.retPhone}`,
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "時間",
+                                "size": "sm",
+                                "color": "#555555",
+                                "flex": 0
+                            },
+                            {
+                                "type": "text",
+                                "text": `${result.retTimeSlot}`,
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "項目",
+                                "size": "sm",
+                                "color": "#555555"
+                            },
+                            {
+                                "type": "text",
+                                "text": `${result.retItem}`,
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        }
+                        `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `,
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "需延甲幾指",
+                                "size": "sm",
+                                "color": "#555555"
+                            },
+                            {
+                                "type": "text",
+                                "text": ${result.retNailNum},
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        }` : ""}`,
+                        {
+                            "type": "separator",
+                            "margin": "xxl"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [
+                            {
+                                "type": "text",
+                                "text": "備註",
+                                "size": "sm",
+                                "color": "#555555"
+                            },
+                            {
+                                "type": "text",
+                                "text": `${result.retRemarks}`,
+                                "size": "sm",
+                                "color": "#111111",
+                                "align": "end"
+                            }
+                            ]
+                        }
+                        ],
+                        "borderWidth": "none",
+                        "cornerRadius": "none"
+                    }
+                    ],
+                    "background": {
+                        "type": "linearGradient",
+                        "angle": "45deg",
+                        "startColor": "#ffd9aa",
+                        "endColor": "#FFFFF0"
+                    }
+                },
+                "styles": {
+                    "footer": {
+                        "separator": true
+                    }
+                }
+            }
             ])
             .then(() => {
                 console.log("message sent");
