@@ -310,7 +310,7 @@
 // alert(document.getElementById("lineId").value + " " + document.getElementById("remarks").value);
 // alert(`${data.lineId} 資料已儲存！`);
 }
-
+let liff;
 async function initLIFF() {
     try {
         const res = await fetch(`${cloudflareUrl}liff-id`);
