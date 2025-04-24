@@ -152,7 +152,6 @@
         <button id="reloadPage" class="btn-reloadPage" onclick="reloadPage()">重新載入</button>
     </div>
     <script>
-        let liff;
         let cloudflareUrl = "https://workerwinnie.a238541121.workers.dev/";
         async function sendSubmit() {
             var data = {
@@ -280,7 +279,8 @@
             .catch((err) => {
                 console.log("error", err);
             });
-            window.close();
+            liff.closeWindow();
+            // window.close();
         }
     }
 } else {
