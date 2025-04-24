@@ -266,9 +266,8 @@
             confirmButtonText: "OK",
         });
         if (confirm_appointSuc) {
-            liff
-            .sendMessages([`
-                {"type":"flex",
+            const flexmsg = {
+                type:"flex",
                 altText:"預約詳情",
                 contents:{
                 "type": "bubble",
@@ -314,7 +313,7 @@
                             },
                             {
                                 "type": "text",
-                                "text": ${result.retName},
+                                "text": result.retName,
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
@@ -334,7 +333,7 @@
                             },
                             {
                                 "type": "text",
-                                "text": ${result.retPhone},
+                                "text": result.retPhone,
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
@@ -354,7 +353,7 @@
                             },
                             {
                                 "type": "text",
-                                "text": ${result.retTimeSlot},
+                                "text": result.retTimeSlot,
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
@@ -373,14 +372,14 @@
                             },
                             {
                                 "type": "text",
-                                "text": ${result.retItem},
+                                "text": result.retItem,
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
                             }
                             ]
                         }
-                        ${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `,
+                        `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `,
                         {
                             "type": "box",
                             "layout": "horizontal",
@@ -399,8 +398,8 @@
                                 "align": "end"
                             }
                             ]
-                        }` : ""}
-                        ${result.retRemarks != "" ? `,
+                        }` : ""}`
+                        `${result.retRemarks != "" ? `,
                         {
                             "type": "separator",
                             "margin": "xxl"
@@ -423,7 +422,7 @@
                                 "align": "end"
                             }
                             ]
-                        }` : ""}
+                        }` : ""}`
                         ],
                         "borderWidth": "none",
                         "cornerRadius": "none"
@@ -441,8 +440,9 @@
                         "separator": true
                     }
                 }
-            }}`,
-            ])
+            }};
+            liff
+            .sendMessages([flexmsg])
             .then(() => {
                 console.log("message sent");
             })
