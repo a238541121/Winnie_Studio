@@ -267,7 +267,10 @@
         });
         if (confirm_appointSuc) {
             liff
-            .sendMessages([{
+            .sendMessages([
+                {"type":"flex",
+                altText:"預約詳情",
+                contents:{
                 "type": "bubble",
                 "body": {
                     "type": "box",
@@ -377,7 +380,7 @@
                             }
                             ]
                         }
-                        ,
+                        `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? `,
                         {
                             "type": "box",
                             "layout": "horizontal",
@@ -390,34 +393,14 @@
                             },
                             {
                                 "type": "text",
-                                "text": `${result.retNailNum}`,
+                                "text": ${result.retNailNum},
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
                             }
                             ]
-                        }
-                        // `${result.retItem === "手足" || result.retItem === "手" || result.retItem === "足" ? ,
-                        // {
-                        //     "type": "box",
-                        //     "layout": "horizontal",
-                        //     "contents": [
-                        //     {
-                        //         "type": "text",
-                        //         "text": "需延甲幾指",
-                        //         "size": "sm",
-                        //         "color": "#555555"
-                        //     },
-                        //     {
-                        //         "type": "text",
-                        //         "text": ${result.retNailNum},
-                        //         "size": "sm",
-                        //         "color": "#111111",
-                        //         "align": "end"
-                        //     }
-                        //     ]
-                        // } : ""}`
-                        ,
+                        }` : ""}`
+                        `${result.retRemarks != "" ? `,
                         {
                             "type": "separator",
                             "margin": "xxl"
@@ -434,13 +417,13 @@
                             },
                             {
                                 "type": "text",
-                                "text": `${result.retRemarks}`,
+                                "text": ${result.retRemarks},
                                 "size": "sm",
                                 "color": "#111111",
                                 "align": "end"
                             }
                             ]
-                        }
+                        }` : ""}`
                         ],
                         "borderWidth": "none",
                         "cornerRadius": "none"
@@ -458,7 +441,7 @@
                         "separator": true
                     }
                 }
-            },
+            }},
             ])
             .then(() => {
                 console.log("message sent");
