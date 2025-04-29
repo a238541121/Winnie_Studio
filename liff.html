@@ -454,7 +454,7 @@ async function dataSearch(lineID) {
         console.log(response);
         let data1 = JSON.parse(await response.text());
         console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
-        
+        console.log("備註:", data1.remark);
         if (!data1 || !data1.message || !Array.isArray(data1.message)) {
             console.error("錯誤: 時段資料格式錯誤或不存在");
             return;
