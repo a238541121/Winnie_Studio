@@ -485,7 +485,7 @@ async function dataSearch(lineID) {
             option.textContent = timeSlot;
             select.appendChild(option);
         });
-        sessionStorage.setItem("data1.retRemarks",data1.retRemarks);
+        sessionStorage.setItem("data1.remark",data1.remark);
         // 顯示畫面
         document.getElementById("container").style.display = "block";
         document.getElementById("errContainer").style.display = "none";
@@ -553,7 +553,7 @@ function toggleItem() {
 async function UpdateItemOptions() {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
     console.log(timeslotSelIndex);
-    var remark = sessionStorage.getItem("data1.retRemarks").split(",");
+    var remark = sessionStorage.getItem("data1.remark").split(",");
     console.log(remark);
     let selectitem = document.getElementById("item");
     selectitem.innerHTML = ""; // 清空舊選項
