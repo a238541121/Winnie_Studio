@@ -523,7 +523,7 @@ async function notice(item) {
         <p><strong> •一年內曾做眼部手術 (如雷射、雙眼皮) 者不可操作。</strong></p>
         <p><strong> •孕婦與哺乳者無法進行睫毛管理。</strong></p>
         <p><strong> •半永久眼線需滿 1 個月後才能操作。</strong></p>
-        <p><strong> •操作時間約 1.5 - 2 小時。</strong></p>
+        <p><strong> •操作時間約 ${item === "上睫毛" ? "1.5 - 2" : "2.5 - 3"} 小時。</strong></p>
         <p><strong> •已嫁接睫毛者請先卸除，不提供卸睫服務。</strong></p>
         <p><strong> •採預約制，嚴禁放鳥、遲到 20分鐘我方有權取消預約。</strong></p>
         <p><strong> 操作結束後可於官方帳號輸入「睫毛注意事項」查詢後續保養指引！</strong></p>
@@ -564,7 +564,7 @@ async function UpdateItemOptions() {
     defaultOption.selected = true;
     selectitem.appendChild(defaultOption);
     if(remark[timeslotSelIndex-1] != ""){
-        var remark_spl = remark[timeslotSelIndex-1].split("或");
+        var remark_spl = remark[timeslotSelIndex-1].split(",");
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.value = item;
@@ -573,7 +573,7 @@ async function UpdateItemOptions() {
         });
     } 
     else{
-        var itemD = ["手足","手","足","上睫毛","上下睫毛","手部深層保養","足部基礎保養","足部深層保養","足部足底硬皮處理"];
+        var itemD = ["純卸甲","手足","手","足","上睫毛","上下睫毛","手部深層保養","足部基礎保養","足部深層保養","足部足底硬皮處理"];
         itemD.forEach(Detail => {
             let option = document.createElement("option");
             option.value = Detail;
