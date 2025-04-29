@@ -564,7 +564,7 @@ async function UpdateItemOptions() {
     defaultOption.selected = true;
     selectitem.appendChild(defaultOption);
     if(remark[timeslotSelIndex-1] != ""){
-        var remark_spl = remark[timeslotSelIndex-1].split(",");
+        var remark_spl = remark[timeslotSelIndex-1].split(" , ");
         remark_spl.forEach((item) => {
             let option = document.createElement("option");
             option.value = item;
