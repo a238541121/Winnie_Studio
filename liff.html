@@ -553,7 +553,7 @@ function toggleItem() {
 async function UpdateItemOptions() {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
     console.log(timeslotSelIndex);
-    var remark = sessionStorage.getItem("data1.remark").split(",");
+    var remark = sessionStorage.getItem("data1.remark").split(" , ");
     console.log(remark);
     let selectitem = document.getElementById("item");
     selectitem.innerHTML = ""; // 清空舊選項
