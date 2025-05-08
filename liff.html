@@ -225,7 +225,7 @@
                         document.getElementById("container").style.filter = "blur(0px)";
                         document.getElementById("loader").style.display = "none";
                         let result = JSON.parse(await response.text()); // 解析返回的 JSON
-                        console.log(result); // 處理結果
+                        //console.log(result); // 處理結果
                         if (result.isSuc === false) {
                             await dataSearch(sessionStorage.getItem("lineId"));
                             let confirm_appointFai = await Swal.fire({
@@ -373,10 +373,10 @@
             liff
             .sendMessages([flexMsg])
             .then(() => {
-                console.log("message sent");
+                //console.log("message sent");
             })
             .catch((err) => {
-                console.log("error", err);
+                //console.log("error", err);
             });
             liff.closeWindow();
             // window.close();
@@ -385,7 +385,7 @@
 } else {
     document.getElementById("container").style.filter = "blur(0px)";
     document.getElementById("loader").style.display = "none";
-    console.error("預約失敗:", response.statusText);
+    //console.error("預約失敗:", response.statusText);
     let confirm_Fai = await Swal.fire({
         title: "出了一點問題",
         text: `${response.statusText}`,
@@ -402,7 +402,7 @@
 } catch (error) {
     document.getElementById("container").style.filter = "blur(0px)";
     document.getElementById("loader").style.display = "none";
-    console.error("錯誤:", error);
+    //console.error("錯誤:", error);
     alert("發生錯誤，請檢查網路或稍後再試！");
 }
 }
@@ -433,9 +433,9 @@ async function initLIFF() {
         // document.getElementById("lineId").value = profile.userId;
         await dataSearch(profile.userId);
         
-        console.log("LIFF 初始化成功");
+        //console.log("LIFF 初始化成功");
     } catch (err) {
-        console.warn("LIFF 初始化失敗，錯誤訊息:", err);
+        //console.warn("LIFF 初始化失敗，錯誤訊息:", err);
         getLineIdFromURL(); // 如果 LIFF 失敗，就從 URL 讀取 lineId
     }
 }
@@ -451,12 +451,12 @@ async function dataSearch(lineID) {
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
         });
-        console.log(response);
+        //console.log(response);
         let data1 = JSON.parse(await response.text());
-        console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
-        console.log("備註:", data1.remark);
+        //console.log("取得的資料:", data1.message); // 🔹 確保資料正確回傳
+        //console.log("備註:", data1.remark);
         if (!data1 || !data1.message || !Array.isArray(data1.message)) {
-            console.error("錯誤: 時段資料格式錯誤或不存在");
+            //console.error("錯誤: 時段資料格式錯誤或不存在");
             return;
         }
         if (data1.isMember == false) {
@@ -492,7 +492,7 @@ async function dataSearch(lineID) {
         document.getElementById("loader").style.display = "none";
         // notice();
     } catch (error) {
-        console.error("取得時段失敗", error);
+        //console.error("取得時段失敗", error);
     }
 }
 async function getLineIdFromURL() {
@@ -552,9 +552,9 @@ function toggleItem() {
 }
 async function UpdateItemOptions() {
     var timeslotSelIndex = document.getElementById("timeslot").selectedIndex;
-    console.log(timeslotSelIndex);
+    //console.log(timeslotSelIndex);
     var remark = sessionStorage.getItem("data1.remark").split(",");
-    console.log(remark);
+    //console.log(remark);
     let selectitem = document.getElementById("item");
     selectitem.innerHTML = ""; // 清空舊選項
     var defaultOption = document.createElement("option");
