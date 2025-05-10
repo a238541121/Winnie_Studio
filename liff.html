@@ -236,6 +236,119 @@
                             });
                         } 
                         else {
+                            const flexMsg = {
+                                type: "flex",
+                                altText: "預約詳情",
+                                contents: {
+                                    type: "bubble",
+                                    body: {
+                                        type: "box",
+                                        layout: "vertical",
+                                        contents: [
+                                        {
+                                            type: "text",
+                                            text: "nails._winnie MESSAGE",
+                                            weight: "bold",
+                                            color: "#1DB446",
+                                            size: "sm"
+                                        },
+                                        {
+                                            type: "text",
+                                            text: "預約成功",
+                                            weight: "bold",
+                                            size: "xxl",
+                                            margin: "md",
+                                            align: "center"
+                                        },
+                                        {
+                                            type: "separator",
+                                            margin: "xxl", 
+                                            color: "#171513"
+                                        },
+                                        {
+                                            type: "box",
+                                            layout: "vertical",
+                                            margin: "xxl",
+                                            spacing: "sm",
+                                            contents: [
+                                            {
+                                                type: "box",
+                                                layout: "horizontal",
+                                                contents: [
+                                                { type: "text", text: "姓名", size: "sm", color: "#555555", flex: 0 },
+                                                { type: "text", text: result.retName, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            },
+                                            {
+                                                type: "box",
+                                                layout: "horizontal",
+                                                contents: [
+                                                { type: "text", text: "電話", size: "sm", color: "#555555", flex: 0 },
+                                                { type: "text", text: result.retPhone, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            },
+                                            {
+                                                type: "box",
+                                                layout: "horizontal",
+                                                contents: [
+                                                { type: "text", text: "時間", size: "sm", color: "#555555", flex: 0 },
+                                                { type: "text", text: result.retTimeSlot, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            },
+                                            {
+                                                type: "box",
+                                                layout: "horizontal",
+                                                contents: [
+                                                { type: "text", text: "項目", size: "sm", color: "#555555" },
+                                                { type: "text", text: result.retItem, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            },
+                                            ...(["手足", "手", "足"].includes(result.retItem) ? [{
+                                                type: "box",
+                                                layout: "horizontal",
+                                                contents: [
+                                                { type: "text", text: "需延甲幾指", size: "sm", color: "#555555" },
+                                                { type: "text", text: result.retNailNum, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            }] : []),
+                                            ...(result.retRemarks ? [
+                                            { type: "separator", margin: "xxl", "color": "#171513"},
+                                            {
+                                                type: "box",
+                                                layout: "vertical",
+                                                contents: [
+                                                { type: "text", text: "備註", size: "sm", color: "#555555" },
+                                                { type: "text", text: result.retRemarks, size: "sm", color: "#111111", align: "end" }
+                                                ]
+                                            }
+                                            ] : [])
+                                            ]
+                                        }
+                                        ],
+                                        background: {
+                                            type: "linearGradient",
+                                            angle: "45deg",
+                                            startColor: "#ffd9aa",
+                                            endColor: "#FFFFF0"
+                                        }
+                                    },
+                                    styles: {
+                                        footer: {
+                                            separator: true
+                                        }
+                                    }
+                                }
+                            };
+                            
+                            liff
+                            .sendMessages([flexMsg])
+                            .then(() => {
+                                //console.log("message sent");
+                            })
+                            .catch((err) => {
+                                //console.log("error", err);
+                            });
+                            
                             let confirm_appointSuc = await Swal.fire({
                                 title: "預約成功",
                                 html: `
@@ -266,118 +379,6 @@
             confirmButtonText: "OK",
         });
         if (confirm_appointSuc) {
-            const flexMsg = {
-                type: "flex",
-                altText: "預約詳情",
-                contents: {
-                    type: "bubble",
-                    body: {
-                        type: "box",
-                        layout: "vertical",
-                        contents: [
-                        {
-                            type: "text",
-                            text: "nails._winnie MESSAGE",
-                            weight: "bold",
-                            color: "#1DB446",
-                            size: "sm"
-                        },
-                        {
-                            type: "text",
-                            text: "預約成功",
-                            weight: "bold",
-                            size: "xxl",
-                            margin: "md",
-                            align: "center"
-                        },
-                        {
-                            type: "separator",
-                            margin: "xxl", 
-                            color: "#171513"
-                        },
-                        {
-                            type: "box",
-                            layout: "vertical",
-                            margin: "xxl",
-                            spacing: "sm",
-                            contents: [
-                            {
-                                type: "box",
-                                layout: "horizontal",
-                                contents: [
-                                { type: "text", text: "姓名", size: "sm", color: "#555555", flex: 0 },
-                                { type: "text", text: result.retName, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            },
-                            {
-                                type: "box",
-                                layout: "horizontal",
-                                contents: [
-                                { type: "text", text: "電話", size: "sm", color: "#555555", flex: 0 },
-                                { type: "text", text: result.retPhone, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            },
-                            {
-                                type: "box",
-                                layout: "horizontal",
-                                contents: [
-                                { type: "text", text: "時間", size: "sm", color: "#555555", flex: 0 },
-                                { type: "text", text: result.retTimeSlot, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            },
-                            {
-                                type: "box",
-                                layout: "horizontal",
-                                contents: [
-                                { type: "text", text: "項目", size: "sm", color: "#555555" },
-                                { type: "text", text: result.retItem, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            },
-                            ...(["手足", "手", "足"].includes(result.retItem) ? [{
-                                type: "box",
-                                layout: "horizontal",
-                                contents: [
-                                { type: "text", text: "需延甲幾指", size: "sm", color: "#555555" },
-                                { type: "text", text: result.retNailNum, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            }] : []),
-                            ...(result.retRemarks ? [
-                            { type: "separator", margin: "xxl", "color": "#171513"},
-                            {
-                                type: "box",
-                                layout: "vertical",
-                                contents: [
-                                { type: "text", text: "備註", size: "sm", color: "#555555" },
-                                { type: "text", text: result.retRemarks, size: "sm", color: "#111111", align: "end" }
-                                ]
-                            }
-                            ] : [])
-                            ]
-                        }
-                        ],
-                        background: {
-                            type: "linearGradient",
-                            angle: "45deg",
-                            startColor: "#ffd9aa",
-                            endColor: "#FFFFF0"
-                        }
-                    },
-                    styles: {
-                        footer: {
-                            separator: true
-                        }
-                    }
-                }
-            };
-            
-            liff
-            .sendMessages([flexMsg])
-            .then(() => {
-                //console.log("message sent");
-            })
-            .catch((err) => {
-                //console.log("error", err);
-            });
             liff.closeWindow();
             // window.close();
         }
